@@ -1,5 +1,8 @@
-const Index = () => (
-  <h1>Hello World</h1>
+import Layout from "../components/layout"
+
+
+const Index = (props) => (
+  <Layout />
 )
 
 
