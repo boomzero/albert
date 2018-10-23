@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 
 const dbURI = 'mongodb://localhost:27017/albert'
-mongoose.connect(dbURI, { useNewUrlParser: true })
+mongoose.connect(dbURI, { useCreateIndex: true, useNewUrlParser: true })
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', () => console.log('Mongoose connected to ' + dbURI))
@@ -34,6 +34,6 @@ process.on('SIGTERM', () => {
 
 
 // BRING IN YOUR SCHEMAS & MODELS
+require('./counter')
 require('./url')
 require('./user')
-require('./counter')

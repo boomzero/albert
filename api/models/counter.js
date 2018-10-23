@@ -1,14 +1,14 @@
-const mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+
+
+const Schema = mongoose.Schema
 
 const counterSchema = new Schema({
-    _id: {
-        unique: true
-    },
-    sequence_value: {
-        type: Number, 
-        required: false
-    }
-});
+  sequenceValue: {
+    type: Number,
+    required: true
+  }
+})
 
-mongoose.model('Counter',counterSchema);
+
+mongoose.model('Counter', counterSchema)
