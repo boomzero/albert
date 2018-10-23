@@ -1,10 +1,10 @@
-const express = require("express")
+const express = require('express')
 
 
-const router = express.Router()
+const router = new express.Router()
 
-router.route("/")
-  .get((req, res) => res.send("API OK"))
+router.route('/')
+  .get((req, res) => res.send('API OK'))
 
 
 module.exports = router
