@@ -1,7 +1,7 @@
 # ALBERT v0.0.1
 
-## Documentation v0.1.95
-Read more [here](https://github.com/lqmanh/albert/blob/master/documentation).
+## Documentation v0.3.0
+Read more [here](https://github.com/lqmanh/albert/blob/docs/docs/Documentation-v0.3.0.pdf).
 
 ## License
 The app is licensed under [MIT license](https://github.com/lqmanh/albert/blob/master/LICENSE).
