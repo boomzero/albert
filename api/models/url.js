@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 
+
 const Schema = mongoose.Schema
 
 const accessSchema = new Schema({
@@ -51,6 +52,7 @@ const urlSchema = new Schema({
   restriction: restrictionSchema,
   accesses: [accessSchema]
 })
+
 
 const Url = mongoose.model("Url", urlSchema)
 module.exports = Url

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 
+
 const Schema = mongoose.Schema
 
 const counterSchema = new Schema({
@@ -8,6 +9,7 @@ const counterSchema = new Schema({
     required: true
   }
 })
+
 
 const Counter = mongoose.model("Counter", counterSchema)
 module.exports = Counter

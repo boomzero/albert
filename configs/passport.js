@@ -1,10 +1,11 @@
 const passport = require("passport")
-const JwtStrategy = require("passport-jwt").Strategy,
-  ExtractJwt = require("passport-jwt").ExtractJwt
+const JwtStrategy = require("passport-jwt").Strategy
+const ExtractJwt = require("passport-jwt").ExtractJwt
 const LocalStrategy = require("passport-local").Strategy
 const jwt = require("jsonwebtoken")
 
 const User = require("../api/models/user")
+
 
 const JWT_SECRET = "albertsecret"
 const EXPIRESIN = "10h"

@@ -1,6 +1,7 @@
 const express = require("express")
 const passport = require("passport")
 
+
 const router = new express.Router()
 
 // Example and test routes for auth
@@ -32,5 +33,6 @@ router.post("/private", passport.authenticate("jwt"), (req, res) => {
         message: "Jwt authenticated"
     })
 })
+
 
 module.exports = router
