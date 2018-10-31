@@ -1,26 +1,41 @@
-const next = require('next');
-const express = require('express');
+const express = require("express")
+const next = require("next")
+const logger = require("morgan")
+const bodyparser = require("body-parser")
+const passport = require("passport")
 
-const apiRouter = require('./api/routes');
+require("./configs/passport")
+const apiRouter = require("./api/routes")
+const serverRouter = require("./server/routes/index")
 
 
-const app = next({ dev: process.env.NODE_ENV !== 'production' });
-const nextHandler = app.getRequestHandler();
+const port = parseInt(process.env.PORT, 10) || 3000
+const mode = process.env.NODE_ENV
+const app = next({ dev: mode !== "production" })
+const nextHandler = app.getRequestHandler()
 
-app.prepare()
+app
+  .prepare()
   .then(() => {
-    const server = express();
+    const server = express()
 
-    server.use('/api', apiRouter);
-    server.use(nextHandler);
+    server.use(logger("dev"))
+    server.use(
+      bodyparser.urlencoded({ extended: false })
+    )
+    server.use(bodyparser.json())
+    server.use(passport.initialize())  // load passport config
 
-    const port = process.env.PORT || 3000;
-    server.listen(port, (err) => {
-      if (err) throw err;
-      console.log(`> Ready on http://localhost:${port} in ${process.env.NODE_ENV} mode`);
-    });
+    server.use("/api", apiRouter)
+    server.use(serverRouter)
+    server.use(nextHandler)
+
+    server.listen(port, err => {
+      if (err) throw err
+      console.log(`> Ready on http://localhost:${port} in ${mode} mode`)
+    })
   })
-  .catch((err) => {
-      console.error(err.stack);
-      process.exit(1);
-  });
+  .catch(err => {
+    console.error(err.stack)
+    process.exit(1)
+  })

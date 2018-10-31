@@ -1,10 +1,7 @@
-const express = require('express');
+const express = require("express")
 
+const router = new express.Router()
 
-const router = express.Router();
+router.route("/").get((req, res) => res.send("API OK"))
 
-router.route('/')
-  .get((req, res) => res.send('API OK'));
-
-
-module.exports = router;
+module.exports = router

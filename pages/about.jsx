@@ -2,7 +2,7 @@ import Layout from "../components/layout"
 
 
 const Index = (props) => (
-  <Layout />
+  <h1>About</h1>
 )
 
 
