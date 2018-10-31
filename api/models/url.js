@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-
+const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema
 
@@ -11,23 +10,23 @@ const accessSchema = new Schema({
   timestamp: true,
   redirected: {
     type: Boolean,
-    required: true,
-  },
+    required: true
+  }
 })
 
 const restrictionSchema = new Schema({
   method: {
     type: String,
-    required: true,
+    required: true
   },
   limitAllIpPerDay: {
     type: Number,
-    default: 86400,
+    default: 86400
   },
   timeOutDuration: {
     type: Number,
-    default: 5,
-  },
+    default: 5
+  }
 })
 
 const urlSchema = new Schema({
@@ -50,8 +49,8 @@ const urlSchema = new Schema({
   },
   password: String,
   restriction: restrictionSchema,
-  accesses: [accessSchema],
+  accesses: [accessSchema]
 })
 
-
-mongoose.model('Url', urlSchema)
+const Url = mongoose.model("Url", urlSchema)
+module.exports = Url
