@@ -4,10 +4,10 @@ const logger = require("morgan")
 const bodyparser = require("body-parser")
 const passport = require("passport")
 
+require("./api/models/db")
 require("./configs/passport")
 const apiRouter = require("./api/routes")
 const serverRouter = require("./server/routes/index")
-
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const mode = process.env.NODE_ENV
@@ -18,7 +18,6 @@ app
   .prepare()
   .then(() => {
     const server = express()
-
     server.use(logger("dev"))
     server.use(
       bodyparser.urlencoded({ extended: false })

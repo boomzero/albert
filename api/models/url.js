@@ -3,17 +3,19 @@ const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema
 
-const accessSchema = new Schema({
-  ipv4: {
-    type: String,
-    required: true
+const accessSchema = new Schema(
+  {
+    ipv4: {
+      type: String,
+      required: true
+    },
+    redirected: {
+      type: Boolean,
+      required: true
+    }
   },
-  timestamp: true,
-  redirected: {
-    type: Boolean,
-    required: true
-  }
-})
+  { timestamps: true }
+)
 
 const restrictionSchema = new Schema({
   method: {
@@ -41,7 +43,7 @@ const urlSchema = new Schema({
     required: true
   },
   owner: {
-    type: Schema.types.ObjectId,
+    type: String,
     required: true
   },
   expirationDate: {
@@ -54,5 +56,5 @@ const urlSchema = new Schema({
 })
 
 
-const Url = mongoose.model("Url", urlSchema)
+const Url = mongoose.model('Url', urlSchema)
 module.exports = Url

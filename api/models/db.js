@@ -51,6 +51,5 @@ process.on("SIGTERM", () => {
 
 
 // BRING IN YOUR SCHEMAS & MODELS
-require("./counter")
 require("./url")
 require("./user")
