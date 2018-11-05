@@ -1,37 +1,38 @@
 const mongoose = require('mongoose')
 const shortid = require('shortid')
 
+
 const Url = mongoose.model('Url')
 
 
-class UrlController{
-  static async getAll(req, res){
-    try{
-      const urls = await Url.find({owner: req.params.username})
+class UrlController {
+  static async getAllOfUser(req, res) {
+    try {
+      const urls = await Url.find({ owner: req.params.username })
       res.json(urls)
-    } catch (err){
+    } catch (err) {
       res.send(err)
     }
   }
 
-  static async getOne(req, res){
+  static async getOne(req, res) {
     try {
       console.log(req.params.shortened)
-      const url = await Url.findOne({shortened: req.params.shortened})
+      const url = await Url.findOne({ shortened: req.params.shortened })
       res.json(url)
-    } catch (err){
+    } catch (err) {
       res.send(err)
     }
   }
 
-  static async createOne(req, res){
+  static async createOne(req, res) {
     try {
-      
+      let _shortened
       if (req.body.shortened) {
-        var _shortened = req.body.shortened
+        _shortened = req.body.shortened
       }
       else {
-        var _shortened = shortid.generate();
+        _shortened = shortid.generate()
       }
       const url = await Url.create({
         shortened: _shortened,
@@ -41,28 +42,28 @@ class UrlController{
         password: req.body.password
       })
       res.json(url)
-    } catch (err){
+    } catch (err) {
       res.send(err)
     }
   }
 
-  static async updateOne(req, res){
+  static async updateOne(req, res) {
     try {
       const url = await Url.findOneAndUpdate({shortened: req.params.shortened}, {
         expirationDate: req.body.expirationDate,
         password: req.body.password
       })
       res.json(url)
-    } catch (err){
+    } catch (err) {
       res.send(err)
     }
   }
 
-  static async deleteOne(req, res){
+  static async deleteOne(req, res) {
     try {
-      const url = await Url.findOneAndDelete({shortened: req.params.shortened})
+      const url = await Url.findOneAndDelete({ shortened: req.params.shortened })
       res.json(url)
-    } catch (err){
+    } catch (err) {
       res.send(err)
     }
   }

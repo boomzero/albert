@@ -9,6 +9,7 @@ require("./configs/passport")
 const apiRouter = require("./api/routes")
 const serverRouter = require("./server/routes/index")
 
+
 const port = parseInt(process.env.PORT, 10) || 3000
 const mode = process.env.NODE_ENV
 const app = next({ dev: mode !== "production" })

@@ -1,5 +1,6 @@
 import Layout from "../components/layout"
 
+
 const Index = (props) => (
   <Layout />
 )
