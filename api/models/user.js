@@ -1,4 +1,6 @@
 const mongoose = require("mongoose")
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 
 const Schema = mongoose.Schema
@@ -27,6 +29,15 @@ const userSchema = new Schema({
     required: true
   }
 })
+
+userSchema.pre('save', async function() {
+  const hash = await bcrypt.hashSync(this.password, saltRounds)
+  this.password = hash
+})
+
+userSchema.methods.comparePassword =async function(candidatePassword) {
+  return await (bcrypt.compareSync(candidatePassword, this.password))
+}
 
 
 const User = mongoose.model('User', userSchema)
