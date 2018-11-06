@@ -1,8 +1,8 @@
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt')
+
+
 const saltRounds = 10
-
-
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
@@ -35,7 +35,7 @@ userSchema.pre('save', async function() {
   this.password = hash
 })
 
-userSchema.methods.comparePassword =async function(candidatePassword) {
+userSchema.methods.comparePassword = async function(candidatePassword) {
   return await (bcrypt.compareSync(candidatePassword, this.password))
 }
 
