@@ -1,4 +1,6 @@
 import { Component } from "react"
+import axios from "axios"
+import dayjs from "dayjs"
 
 import Options from "./options"
 
@@ -7,14 +9,36 @@ class Form extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { url: "" }
+    this.state = {
+      url: "",
+      lifespan: 14,
+      customShortened: "",
+      password: "",
+      restrictionMethod: "none",
+      restrictionLimit: 86400,
+    }
   }
 
   handleChange = (event) => this.setState({ [event.target.name]: event.target.value })
 
   handleChangeOptions = (optionsState) => this.setState(Object.assign(this.state, optionsState))
 
-  handleSubmit = (event) => console.log("Submitted")  // TODO: Actually send a request to API
+  handleSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const res = await axios.post("/api/urls", {
+        customShortened: this.state.customShortened,
+        original: this.state.url,
+        expirationDate: dayjs().add(this.state.lifespan, 'day'),
+        password: this.state.password,
+        restrictionMethod: this.state.restrictionMethod,
+        restrictionLimit: this.state.restrictionLimit
+      })
+      console.log(res.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   render() {
     return (
