@@ -33,6 +33,7 @@ export default class MyDocument extends Document {
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossOrigin="anonymous"
           />
+          <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js" />
         </body>
       </html>
     )

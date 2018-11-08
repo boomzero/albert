@@ -3,7 +3,7 @@ import { withRouter } from 'next/router'
 
 
 const Topbar = (props) => (
-  <nav className="navbar navbar-expand-md navbar-dark bg-primary shadow">
+  <nav className="navbar navbar-expand-sm navbar-dark bg-primary shadow">
     <Link prefetch href="/">
       <a className="navbar-brand mb-0 h1">
         <strong>Albert</strong>
@@ -24,7 +24,7 @@ const Topbar = (props) => (
         </Link>
       </div>
 
-      <form className="form-inline py-2 py-md-0">
+      <form className="form-inline py-2 py-sm-0">
         <Link prefetch href="/signin">
           <a className="btn btn-outline-light">Sign In</a>
         </Link>
