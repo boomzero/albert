@@ -1,19 +1,23 @@
 const mongoose = require("mongoose")
+const bcrypt = require('bcrypt')
 
 
+const saltRounds = 10
 const Schema = mongoose.Schema
 
-const accessSchema = new Schema({
-  ipv4: {
-    type: String,
-    required: true
+const accessSchema = new Schema(
+  {
+    ipv4: {
+      type: String,
+      required: true
+    },
+    redirected: {
+      type: Boolean,
+      required: true
+    }
   },
-  timestamp: true,
-  redirected: {
-    type: Boolean,
-    required: true
-  }
-})
+  { timestamps: true }
+)
 
 const restrictionSchema = new Schema({
   method: {
@@ -41,7 +45,7 @@ const urlSchema = new Schema({
     required: true
   },
   owner: {
-    type: Schema.types.ObjectId,
+    type: String,
     required: true
   },
   expirationDate: {
@@ -50,9 +54,23 @@ const urlSchema = new Schema({
   },
   password: String,
   restriction: restrictionSchema,
-  accesses: [accessSchema]
+  accesses: [accessSchema],
+  active: {
+    type: Boolean,
+    default: true
+  }
 })
 
 
-const Url = mongoose.model("Url", urlSchema)
+urlSchema.pre('save', async function() {
+  const hash = await bcrypt.hashSync(this.password, saltRounds)
+  this.password = hash
+})
+
+urlSchema.methods.comparePassword = async function(candidatePassword) {
+  return await (bcrypt.compareSync(candidatePassword, this.password))
+}
+
+
+const Url = mongoose.model('Url', urlSchema)
 module.exports = Url

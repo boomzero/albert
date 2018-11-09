@@ -4,7 +4,7 @@ import Footer from "./footer"
 
 const Layout = (props) => (
   <>
-    <Topbar />
+    {props.noTopbar ? null : <Topbar />}
     {props.children}
     <Footer />
   </>

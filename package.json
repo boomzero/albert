@@ -6,14 +6,16 @@
   "scripts": {
     "dev": "node app.js",
     "build": "next build",
-    "start": "NODE_ENV=production node app.js"
+    "start": "NODE_ENV=production PORT=3001 node app.js"
   },
   "author": "Luong Quang Manh",
   "license": "MIT",
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
+    "dayjs": "^1.7.7",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.4",
@@ -22,7 +24,8 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "shortid": "^2.2.13"
   },
   "repository": "github:lqmanh/albert",
   "devDependencies": {

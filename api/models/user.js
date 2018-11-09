@@ -1,7 +1,8 @@
 const mongoose = require("mongoose")
-const bcrypt = require("bcrypt")
+const bcrypt = require('bcrypt')
 
 
+const saltRounds = 10
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
@@ -29,20 +30,15 @@ const userSchema = new Schema({
   }
 })
 
-userSchema.methods.validatePassword = function(password) {
-  return bcrypt.compare(password, this.password)
-}
-
-userSchema.pre("save", async function(next) {
-  let hash = await bcrypt.hash(this.password, 8)
-  if (err) {
-    return next(err)
-  } else {
-    this.password = hash
-    return next()
-  }
+userSchema.pre('save', async function() {
+  const hash = await bcrypt.hashSync(this.password, saltRounds)
+  this.password = hash
 })
 
+userSchema.methods.comparePassword = async function(candidatePassword) {
+  return await (bcrypt.compareSync(candidatePassword, this.password))
+}
 
-const User = mongoose.model("User", userSchema)
+
+const User = mongoose.model('User', userSchema)
 module.exports = User

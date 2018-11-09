@@ -4,25 +4,22 @@ const logger = require("morgan")
 const bodyparser = require("body-parser")
 const passport = require("passport")
 
+require("./api/models/db")
 require("./configs/passport")
 const apiRouter = require("./api/routes")
 const serverRouter = require("./server/routes/index")
 
 
-const port = parseInt(process.env.PORT, 10) || 3000
+const port = parseInt(process.env.PORT) || 3000
 const mode = process.env.NODE_ENV
 const app = next({ dev: mode !== "production" })
 const nextHandler = app.getRequestHandler()
 
-app
-  .prepare()
+app.prepare()
   .then(() => {
     const server = express()
-
     server.use(logger("dev"))
-    server.use(
-      bodyparser.urlencoded({ extended: false })
-    )
+    server.use(bodyparser.urlencoded({ extended: false }))
     server.use(bodyparser.json())
     server.use(passport.initialize())  // load passport config
 
