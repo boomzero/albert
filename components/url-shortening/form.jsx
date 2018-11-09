@@ -18,7 +18,6 @@ class Form extends Component {
       restrictionLimit: 86400,
     }
   }
-
   handleChange = (event) => this.setState({ [event.target.name]: event.target.value })
 
   handleChangeOptions = (optionsState) => this.setState(Object.assign(this.state, optionsState))
@@ -29,32 +28,42 @@ class Form extends Component {
       const res = await axios.post("/api/urls", {
         customShortened: this.state.customShortened,
         original: this.state.url,
-        expirationDate: dayjs().add(this.state.lifespan, 'day'),
+        expirationDate: new dayjs().add(this.state.lifespan, "day"),
         password: this.state.password,
         restrictionMethod: this.state.restrictionMethod,
         restrictionLimit: this.state.restrictionLimit
       })
-      console.log(res.data)
+      let result = res.data
+      if (result.shortened) {
+        result.success = true
+        result.shortened = `${this.windowObject.location.origin}/${result.shortened}`
+        this.props.onRespond(result)
+      }
     } catch (err) {
       console.log(err)
     }
+  }
+
+  componentDidMount() {
+    this.windowObject = window
   }
 
   render() {
     return (
       <form className="d-flex flex-column align-items-center" onSubmit={this.handleSubmit}>
         <div className="form-group form-row align-self-stretch">
-          <div className="col-sm-8 col-md-9 col-lg-10 mb-2 mb-sm-0">
-            <input className="form-control form-control-lg"
-              type="url" name="url" placeholder="Enter your URL here..."
-              value={this.state.url} onChange={this.handleChange}
-            />
-          </div>
-          <div className="col-sm-4 col-md-3 col-lg-2">
-            <button type="submit" className="btn btn-primary btn-lg">Shorten</button>
+          <div className="col">
+            <div className="input-group input-group-lg">
+              <input className="form-control"
+                type="url" name="url" placeholder="Enter your URL here..."
+                value={this.state.url} onChange={this.handleChange}
+              />
+              <div className="input-group-append">
+                <button type="submit" className="btn btn-primary">Shorten</button>
+              </div>
+            </div>
           </div>
         </div>
-
         <Options onChange={this.handleChangeOptions} />
       </form>
     )

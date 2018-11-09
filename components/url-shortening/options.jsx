@@ -83,16 +83,16 @@ class Options extends Component {
             </OptionField>
             {this.state.password ? this.getConfirmPassword() : null}
             <OptionField labelText="Restriction method">
-              <select className="w-100" name="restrictionMethod"
+              <select className="custom-select w-100" name="restrictionMethod"
                 value={this.state.restrictionMethod} onChange={this.handleChange}
               >
-                <option value="none">None</option>
-                <option value="timeout">Timeout (5 seconds)</option>
-                <option value="captcha">CAPTCHA</option>
-                <option value="block">Block</option>
+                <option value="None">None</option>
+                <option value="Timeout">Timeout (5 seconds)</option>
+                <option value="CAPTCHA">CAPTCHA</option>
+                <option value="Block">Block</option>
               </select>
             </OptionField>
-            {this.state.restrictionMethod !== "none" ? this.getRestrictionLimit() : null}
+            {this.state.restrictionMethod === "none" ? null : this.getRestrictionLimit()}
           </div>
         </div>
       </>
