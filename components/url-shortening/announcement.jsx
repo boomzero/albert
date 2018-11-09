@@ -38,7 +38,9 @@ class ShortenedUrl extends Component {
               value={this.props.shortened} onClick={this.handleCopy}
               ref={this.shortenedUrlRef} readOnly
             />
-            <CopyButton className="input-group-append" copied={this.state.copied} onClick={this.handleCopy} />
+            <div className="input-group-append">
+              <CopyButton copied={this.state.copied} onClick={this.handleCopy} />
+            </div>
           </div>
         </div>
       </form>
