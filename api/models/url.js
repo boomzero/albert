@@ -54,7 +54,11 @@ const urlSchema = new Schema({
   },
   password: String,
   restriction: restrictionSchema,
-  accesses: [accessSchema]
+  accesses: [accessSchema],
+  active: {
+    type: Boolean,
+    default: true
+  }
 })
 
 

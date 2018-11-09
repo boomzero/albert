@@ -1,9 +1,9 @@
 import Layout from "../components/layout"
 
 
-const Index = (props) => (
+const About = (props) => (
   <Layout />
 )
 
 
-export default Index
+export default About

@@ -30,14 +30,18 @@ class ShortenedUrl extends Component {
 
   render() {
     return (
-      <form className="form-inline mb-3">
-        <label className="mr-3">Shortened URL</label>
-        <div className="input-group">
-          <input className="form-control" type="text"
-            value={this.props.shortened} onClick={this.handleCopy}
-            ref={this.shortenedUrlRef} readOnly
-          />
-          <CopyButton className="input-group-append" copied={this.state.copied} onClick={this.handleCopy} />
+      <form>
+        <div className="form-group">
+          <label>Shortened URL</label>
+          <div className="input-group">
+            <input className="form-control" type="text"
+              value={this.props.shortened} onClick={this.handleCopy}
+              ref={this.shortenedUrlRef} readOnly
+            />
+            <div className="input-group-append">
+              <CopyButton copied={this.state.copied} onClick={this.handleCopy} />
+            </div>
+          </div>
         </div>
       </form>
     )

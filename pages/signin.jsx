@@ -1,9 +1,9 @@
 import Layout from "../components/layout"
 
 
-const Index = (props) => (
+const Signin = (props) => (
   <Layout />
 )
 
 
-export default Index
+export default Signin
