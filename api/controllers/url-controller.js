@@ -27,19 +27,17 @@ class UrlController {
 
   static async createOne(req, res) {
     try {
-      let _shortened
-      if (req.body.shortened) {
-        _shortened = req.body.shortened
-      }
-      else {
-        _shortened = shortid.generate()
-      }
+      const _shortened = req.body.customShortened ? req.body.customShortened : shortid.generate()
       const url = await Url.create({
         shortened: _shortened,
         original: req.body.original,
-        owner: req.body.owner,
+        owner: req.user ? req.user.username : "guest",
         expirationDate: req.body.expirationDate,
-        password: req.body.password
+        password: req.body.password,
+        restriction: {
+          method: req.body.restrictionMethod,
+          limitAllIpPerDay: req.body.restrictionLimit
+        }
       })
       res.json(url)
     } catch (err) {
