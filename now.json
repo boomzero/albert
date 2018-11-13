@@ -1,7 +1,0 @@
-{
-  "alias": "albert",
-  "env": {
-    "DB_URI": "@db_uri"
-  },
-  "public": true
-}

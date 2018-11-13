@@ -1,6 +1,8 @@
 const express = require("express")
 const passport = require("passport")
 
+const redirector = require('../controllers/redirector')
+
 
 const router = new express.Router()
 
@@ -14,6 +16,10 @@ router.route("/login")
       return res.json({ success: true, user, token })
     })(req, res, next)
   })
+
+router.route("/:shortened")
+  .get(redirector.handle)
+
 
 // Public routes example
 /*

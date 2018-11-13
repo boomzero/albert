@@ -1,6 +1,12 @@
 import { Component } from "react"
 
-import OptionField from "./option-field"
+
+const OptionField = (props) => (
+  <div className="form-group form-row align-items-center">
+    <label className="col-sm-4 col-form-label">{props.labelText}</label>
+    <div className="col-sm-8">{props.children}</div>
+  </div>
+)
 
 
 class Options extends Component {
@@ -92,7 +98,7 @@ class Options extends Component {
                 <option value="Block">Block</option>
               </select>
             </OptionField>
-            {this.state.restrictionMethod === "none" ? null : this.getRestrictionLimit()}
+            {this.state.restrictionMethod === "None" ? null : this.getRestrictionLimit()}
           </div>
         </div>
       </>
