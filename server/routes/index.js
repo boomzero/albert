@@ -2,6 +2,9 @@ const express = require("express")
 const passport = require("passport")
 
 
+const redirector = require('../controllers/redirector')
+
+
 const router = new express.Router()
 
 // Local login - email/password
@@ -15,6 +18,8 @@ router.route("/login")
     })(req, res, next)
   })
 
+router.route("/:shortened")
+  .get(redirector.handle)
 // Public routes example
 /*
 router.route("/public")
