@@ -4,16 +4,15 @@ const mongoose = require('mongoose')
 const Url = mongoose.model('Url')
 
 
-class redirector {
+class Redirector {
   static async handle(req, res, next) {
-    const result = await Url.findOne({ shortened : req.params.shortened }, 'original')
-    result.exec( function (err, data) {
-      if (err) return console.log(err)
-      if (!data) return next()
-      res.redirect(data.original)
+    Url.findOne({ shortened : req.params.shortened }, { 'original': true }).exec((err, data) => {
+      if (err) res.send(err)
+      if (!data) next()
+      else res.redirect(data.original)
     })
   }
 }
 
 
-module.exports = redirector
+module.exports = Redirector

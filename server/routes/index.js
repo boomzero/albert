@@ -1,7 +1,6 @@
 const express = require("express")
 const passport = require("passport")
 
-
 const redirector = require('../controllers/redirector')
 
 
@@ -20,6 +19,8 @@ router.route("/login")
 
 router.route("/:shortened")
   .get(redirector.handle)
+
+
 // Public routes example
 /*
 router.route("/public")
