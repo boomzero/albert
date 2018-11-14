@@ -4,9 +4,15 @@ import Footer from "./footer"
 
 const Layout = (props) => (
   <>
-    {props.noTopbar ? null : <Topbar />}
-    {props.children}
+    <Topbar />
+    <div className="topbar-avoidance">{props.children}</div>
     <Footer />
+
+    <style jsx>{`
+      .topbar-avoidance {
+        margin-top: 56px;
+      }
+    `}</style>
   </>
 )
 

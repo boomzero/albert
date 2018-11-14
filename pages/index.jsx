@@ -20,7 +20,7 @@ const Index = (props) => (
         background-image: url(../static/home-hero-background.jpg);
         background-position: center center;
         background-size: cover;
-        min-height: 480px;
+        height: calc(100vh - 56px);
       }
     `}</style>
   </Layout>
