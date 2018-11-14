@@ -1,5 +1,5 @@
-# ALBERT v0.2.0
-> https://albert.now.sh
+# ALBERT v0.2.1
+> https://albert-demo.herokuapp.com
 
 ## Documentation v0.3.0
 Read more [here](https://github.com/lqmanh/albert/blob/master/docs/Documentation-v0.3.0.pdf).
