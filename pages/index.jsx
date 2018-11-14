@@ -1,10 +1,11 @@
+import Hero from "../components/hero"
 import Layout from "../components/layout"
 import UrlShortening from "../components/url-shortening"
 
 
 const Index = (props) => (
   <Layout>
-    <div className="jumbotron jumbotron-fluid d-flex flex-column justify-content-center">
+    <Hero backgroundImage="url(../static/home-hero-background.jpg)" height="calc(100vh - 56px)">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-10 col-sm-8">
@@ -12,17 +13,7 @@ const Index = (props) => (
           </div>
         </div>
       </div>
-    </div>
-
-    <style jsx>{`
-      .jumbotron {
-        background-attachment: fixed;
-        background-image: url(../static/home-hero-background.jpg);
-        background-position: center center;
-        background-size: cover;
-        height: calc(100vh - 56px);
-      }
-    `}</style>
+    </Hero>
   </Layout>
 )
 
