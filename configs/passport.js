@@ -9,43 +9,47 @@ const User = require("../api/models/user")
 
 const JWT_SECRET = "albertsecret"
 const EXPIRESIN = "24h"
-// opts.issuer = 'accounts.examplesoft.com'
-// opts.audience = 'yoursite.net'
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user)
 })
 
-passport.use("local", new LocalStrategy(
-  {
+passport.use("local", new LocalStrategy({
     usernameField: "username",
     passwordField: "password",
     session: false
   },
-  async (username, password, done) => {
+  (username, password, done) => {
     try {
-      const user = await User.findOne({ username: username })
+      User.findOne({
+        username: username
+      }, { password: true }).exec((err, user) => { // include password in query for validation
+        if (!user || !user.validatePassword(password)) return done(null, false)
+        token = jwt.sign({}, JWT_SECRET, {
+          audience: user.id,
+          expiresIn: EXPIRESIN
+        })
+        return done(null, user, token)
+      })
     } catch (err) {
       return done(err)
     }
-    if (!user || !user.validatePassword(password)) return done(null, false)
-    token = jwt.sign({}, JWT_SECRET, { audience: user.id, expiresIn: EXPIRESIN })
-    return done(null, user, token)
   }
 ))
 
-passport.use("jwt", new JwtStrategy(
-  {
+passport.use("jwt", new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromHeader("authorization"),
     secretOrKey: JWT_SECRET
   },
   async (jwt_payload, done) => {
     try {
-      const user = await User.findOne({ id: jwt_payload.id })
+      const user = await User.findOne({
+        id: jwt_payload.id
+      })
+      if (user) return done(null, user)
+      else return done(null, false)
     } catch (err) {
       return done(err, false)
     }
-    if (user) return done(null, user)
-    else return done(null, false)
   }
 ))
