@@ -23,7 +23,7 @@ passport.use("local", new LocalStrategy({
     try {
       User.findOne({
         username: username
-      }).select('+password').exec((err, user) => { //include password in query for validation
+      }, { password: true }).exec((err, user) => { // include password in query for validation
         if (!user || !user.validatePassword(password)) return done(null, false)
         token = jwt.sign({}, JWT_SECRET, {
           audience: user.id,
