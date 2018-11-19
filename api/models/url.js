@@ -1,9 +1,11 @@
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt')
 
+
 const saltRounds = 10
-const ObjectId = mongoose.Schema.ObjectId
 const Schema = mongoose.Schema
+const ObjectId = Schema.Types.ObjectId
+
 
 const accessSchema = new Schema({
   ipv4: {

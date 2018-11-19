@@ -1,9 +1,9 @@
+const jwt = require("jsonwebtoken")
 const passport = require("passport")
 const ExtractJwt = require("passport-jwt").ExtractJwt
 const JwtStrategy = require("passport-jwt").Strategy
 const LocalStrategy = require("passport-local").Strategy
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy
-const jwt = require("jsonwebtoken")
 const randomstring = require("randomstring")
 
 const User = require("../api/models/user")

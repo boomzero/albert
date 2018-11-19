@@ -1,7 +1,15 @@
 const mongoose = require('mongoose')
 const shortid = require('shortid')
 
+
 const Url = mongoose.model('Url')
+
+const isUrlOwner = async (userId, shortened) => {
+  const url = await Url.findOne({
+    shortened: shortened
+  })
+  return url.owner.toString() === userId
+}
 
 
 class UrlController {
@@ -82,11 +90,5 @@ class UrlController {
   }
 }
 
-async function isUrlOwner(userId, shortened) {
-  const url = await Url.findOne({
-    shortened: shortened
-  })
-  return url.owner.toString() === userId
-}
 
 module.exports = UrlController

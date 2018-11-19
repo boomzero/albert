@@ -7,7 +7,6 @@ const authConfigs = require("../../configs/constants").auth
 
 const router = new express.Router()
 
-
 // Local login - email/password
 router.route("/auth/local")
   .post((req, res, next) => {
@@ -48,14 +47,14 @@ router.route('/auth/google/callback')
 router.route("/:shortened")
   .get(redirector.handle)
 
-/**
- * Route example
- * router.route("/private")
-  .post(passport.authenticate("jwt"), (req, res) => {
-    res.json({ success: true, message: "Jwt authenticated" })
-  })
- * router.route("/public")
-  .get((req, res) => res.send("public"))
- */
+
+// Routing examples
+// router.route("/private")
+//   .post(passport.authenticate("jwt"), (req, res) => {
+//     res.json({ success: true, message: "Jwt authenticated" })
+//   })
+// router.route("/public")
+//   .get((req, res) => res.send("public"))
+
 
 module.exports = router
