@@ -1,4 +1,5 @@
 const express = require('express')
+const passport = require('passport')
 
 const urlController = require('../controllers/url-controller')
 
@@ -9,11 +10,11 @@ router.route('/')
 
 router.route('/:shortened')
   .get(urlController.getOne)
-  .put(urlController.updateOne)
-  .delete(urlController.deleteOne)
+  .put(passport.authenticate('jwt'), urlController.updateOne)
+  .delete(passport.authenticate('jwt'), urlController.deleteOne)
 
 router.route('/users/:username')
-.get(urlController.getAllOfUser)
+  .get(passport.authenticate('jwt'), urlController.getAllOfUser)
 
 
 module.exports = router

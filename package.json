@@ -23,8 +23,10 @@
     "next-optimized-images": "^1.4.1",
     "next-purgecss": "^2.0.0",
     "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "randomstring": "^1.1.5",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "shortid": "^2.2.13"

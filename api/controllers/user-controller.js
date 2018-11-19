@@ -7,7 +7,13 @@ const User = mongoose.model('User')
 class UserController {
   static async getOne(req, res) {
     try {
-      const user = await User.findOne({ username: req.params.username })
+      if (req.user.username !== req.params.username)
+        return res.status(403).json({
+          success: false
+        })
+      const user = await User.findOne({
+        username: req.params.username
+      })
       res.json(user)
     } catch (err) {
       res.send(err)
@@ -31,7 +37,13 @@ class UserController {
 
   static async updateOne(req, res) {
     try {
-      const user = await User.findOneAndUpdate({ username: req.params.username }, {
+      if (req.user.username !== req.params.username)
+        return res.status(403).json({
+          success: false
+        })
+      const user = await User.findOneAndUpdate({
+        username: req.params.username
+      }, {
         password: req.body.password,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
