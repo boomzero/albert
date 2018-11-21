@@ -20,21 +20,6 @@ const accessSchema = new Schema({
   timestamps: true
 })
 
-const restrictionSchema = new Schema({
-  method: {
-    type: String,
-    required: true
-  },
-  limitAllIpPerDay: {
-    type: Number,
-    default: 86400
-  },
-  timeOutDuration: {
-    type: Number,
-    default: 5
-  }
-})
-
 const urlSchema = new Schema({
   shortened: {
     type: String,
@@ -58,8 +43,27 @@ const urlSchema = new Schema({
     default: true
   },
   password: String,
-  restriction: restrictionSchema,
-  accesses: [accessSchema],
+  restriction: {
+    method: {
+      type: String,
+      required: true
+    },
+    limitAllIpPerDay: {
+      type: Number,
+      default: 86400
+    },
+    timeOutDuration: {
+      type: Number,
+      default: 5
+    }
+  },
+  accesses: {
+    count: {
+      type: Number,
+      default: 0
+    },
+    list: [accessSchema]
+  },
   active: {
     type: Boolean,
     default: true

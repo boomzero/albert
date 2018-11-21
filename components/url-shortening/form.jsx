@@ -5,7 +5,7 @@ import dayjs from "dayjs"
 import Options from "./options"
 
 
-class Form extends Component {
+export default class Form extends Component {
   constructor(props) {
     super(props)
 
@@ -14,7 +14,7 @@ class Form extends Component {
       lifespan: 14,
       customShortened: "",
       password: "",
-      restrictionMethod: "none",
+      restrictionMethod: "None",
       restrictionLimit: 86400,
     }
   }
@@ -69,6 +69,3 @@ class Form extends Component {
     )
   }
 }
-
-
-export default Form

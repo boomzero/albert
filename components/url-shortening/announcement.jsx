@@ -13,7 +13,6 @@ const CopyButton = (props) => {
   return <button className={classes} type="button" onClick={props.onClick}>{text}</button>
 }
 
-
 class ShortenedUrl extends Component {
   constructor(props) {
     super(props)
@@ -48,7 +47,6 @@ class ShortenedUrl extends Component {
   }
 }
 
-
 const Notice = (props) => (
   <p>
     <span>This URL will be expired at&nbsp;
@@ -68,7 +66,6 @@ const Notice = (props) => (
   </p>
 )
 
-
 const AnnouncementTemplate = (props) => (
   <div className="modal fade" id="url-shortening-announcement">
     <div className="modal-dialog modal-dialog-centered">
@@ -84,7 +81,7 @@ const AnnouncementTemplate = (props) => (
 )
 
 
-const Announcement = (props) => {
+export default (props) => {
   if (!props.success) return (
     <AnnouncementTemplate title="Failure">
       <p>Sorry, we couldn't make that.</p>
@@ -99,6 +96,3 @@ const Announcement = (props) => {
     </AnnouncementTemplate>
   )
 }
-
-
-export default Announcement

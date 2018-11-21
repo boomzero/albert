@@ -1,9 +1,6 @@
 import Layout from "../components/layout"
 
 
-const About = (props) => (
+export default (props) => (
   <Layout />
 )
-
-
-export default About
