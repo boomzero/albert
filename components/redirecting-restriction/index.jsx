@@ -1,6 +1,5 @@
-const RedirectingRestriction = (props) => (
-  <h1>Redirecting</h1>
-)
+import Captcha from './captcha'
+import Timeout from './timeout'
 
 
-export default RedirectingRestriction
+export { Captcha, Timeout }

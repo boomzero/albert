@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 
 import Hero from '../components/hero'
 import Layout from "../components/layout"
+import { Captcha, Timeout } from '../components/redirecting-restriction'
 
 
 const Page = (props) => (
@@ -13,10 +14,11 @@ const Page = (props) => (
       <div className="row justify-content-center">
         <div className="col-10 col-md-8 col-xl-6">
           <div className="card">
+            <div class="card-header">
+              <h5 className="mb-0">{props.title}</h5>
+            </div>
             <div className="card-body">
-              <h5 className="card-title">{props.title}</h5>
-              <h6 className='card-subtitle'>{props.subtitle}</h6>
-              <p className='card-text'>{props.message}</p>
+              {props.message ? <p className='card-text'>{props.message}</p> : null}
               {props.children}
             </div>
           </div>
@@ -26,7 +28,8 @@ const Page = (props) => (
   </Layout>
 )
 
-class Redirecting extends Component {
+
+export default class Redirecting extends Component {
   constructor(props) {
     super(props)
 
@@ -53,8 +56,18 @@ class Redirecting extends Component {
       />
     )
     if (urlData.accesses.count + 1 > urlData.restriction.limitAllIpPerDay) {
-      if (urlData.restriction.method === 'Block') return (
-        <Page title='URL Restricted'
+      if (urlData.restriction.method === 'Timeout') return (
+        <Page title='URL Restricted with Time Out'>
+          <Timeout duration={urlData.restriction.timeOutDuration} redirectTo={urlData.original} />
+        </Page>
+      )
+      else if (urlData.restriction.method === 'CAPTCHA') return (
+        <Page title='URL Restricted with CAPTCHA'>
+          <Captcha redirectTo={urlData.original} />
+        </Page>
+      )
+      else if (urlData.restriction.method === 'Block') return (
+        <Page title='URL Blocked'
           message='The number of accesses has exceeded the limit of this URL.'
         />
       )
@@ -63,6 +76,3 @@ class Redirecting extends Component {
     return null
   }
 }
-
-
-export default Redirecting

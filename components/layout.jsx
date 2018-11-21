@@ -2,7 +2,7 @@ import Topbar from "./topbar"
 import Footer from "./footer"
 
 
-const Layout = (props) => (
+export default (props) => (
   <>
     <Topbar />
     <div className="albert-topbar-avoidance">{props.children}</div>
@@ -15,6 +15,3 @@ const Layout = (props) => (
     `}</style>
   </>
 )
-
-
-export default Layout

@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 import { Announcement, Form } from "../components/url-shortening"
 
 
-export default class UrlShortening extends Component {
+export default class Index extends Component {
   constructor(props) {
     super(props)
 

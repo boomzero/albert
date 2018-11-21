@@ -1,4 +1,4 @@
-const Hero = (props) => (
+export default (props) => (
   <>
     <div className="albert-hero d-flex flex-column justify-content-center">
       {props.children}
@@ -15,6 +15,3 @@ const Hero = (props) => (
   `}</style>
   </>
 )
-
-
-export default Hero

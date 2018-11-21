@@ -9,7 +9,7 @@ const OptionField = (props) => (
 )
 
 
-class Options extends Component {
+export default class Options extends Component {
   constructor(props) {
     super(props)
 
@@ -105,6 +105,3 @@ class Options extends Component {
     )
   }
 }
-
-
-export default Options
