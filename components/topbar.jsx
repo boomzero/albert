@@ -3,10 +3,10 @@ import { withRouter } from 'next/router'
 
 
 const Topbar = (props) => (
-  <nav className="navbar navbar-expand-sm navbar-dark bg-primary shadow">
+  <nav className="navbar navbar-expand-md navbar-dark bg-primary fixed-top shadow">
     <Link prefetch href="/">
       <a className="navbar-brand mb-0 h1">
-        <strong>Albert</strong>
+        <strong>ALBERT</strong>
       </a>
     </Link>
 

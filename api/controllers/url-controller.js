@@ -4,11 +4,19 @@ const shortid = require('shortid')
 
 const Url = mongoose.model('Url')
 
+const isUrlOwner = async (userId, shortened) => {
+  const url = await Url.findOne({
+    shortened: shortened
+  })
+  return url.owner.toString() === userId
+}
 
 class UrlController {
   static async getAllOfUser(req, res) {
     try {
-      const urls = await Url.find({ owner: req.params.username })
+      const urls = await Url.find({
+        owner: req.user.id
+      })
       res.json(urls)
     } catch (err) {
       res.send(err)
@@ -18,7 +26,9 @@ class UrlController {
   static async getOne(req, res) {
     try {
       console.log(req.params.shortened)
-      const url = await Url.findOne({ shortened: req.params.shortened })
+      const url = await Url.findOne({
+        shortened: req.params.shortened
+      })
       res.json(url)
     } catch (err) {
       res.send(err)
@@ -47,7 +57,13 @@ class UrlController {
 
   static async updateOne(req, res) {
     try {
-      const url = await Url.findOneAndUpdate({shortened: req.params.shortened}, {
+      if (!isUrlOwner(req.user.id, req.params.shortened))
+        return res.status(403).json({
+          success: false
+        })
+      const url = await Url.updateOne({
+        shortened: req.params.shortened
+      }, {
         expirationDate: req.body.expirationDate,
         password: req.body.password
       })
@@ -59,7 +75,13 @@ class UrlController {
 
   static async deleteOne(req, res) {
     try {
-      const url = await Url.findOneAndDelete({ shortened: req.params.shortened })
+      if (!isUrlOwner(req.user.id, req.params.shortened))
+        return res.status(403).json({
+          success: false
+        })
+      const url = await Url.deleteOne({
+        shortened: req.params.shortened
+      })
       res.json(url)
     } catch (err) {
       res.send(err)

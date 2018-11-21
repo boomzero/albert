@@ -1,7 +1,8 @@
 const mongoose = require("mongoose")
 
 
-let dbURI = "mongodb://localhost:27017/albert"
+let dbURI = process.env.DB_URI_DEV || "mongodb://localhost:27017/albert"
+
 if (process.env.NODE_ENV === "production") {
   dbURI = process.env.DB_URI || dbURI
 }
@@ -48,7 +49,6 @@ process.on("SIGINT", () => {
 process.on("SIGTERM", () => {
   gracefulShutdown("Heroku app termination", () => process.exit(0))
 })
-
 
 // BRING IN YOUR SCHEMAS & MODELS
 require("./url")

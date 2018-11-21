@@ -4,34 +4,19 @@ const bcrypt = require('bcrypt')
 
 const saltRounds = 10
 const Schema = mongoose.Schema
+const ObjectId = Schema.Types.ObjectId
 
-const accessSchema = new Schema(
-  {
-    ipv4: {
-      type: String,
-      required: true
-    },
-    redirected: {
-      type: Boolean,
-      required: true
-    }
-  },
-  { timestamps: true }
-)
-
-const restrictionSchema = new Schema({
-  method: {
+const accessSchema = new Schema({
+  ipv4: {
     type: String,
     required: true
   },
-  limitAllIpPerDay: {
-    type: Number,
-    default: 86400
-  },
-  timeOutDuration: {
-    type: Number,
-    default: 5
+  redirected: {
+    type: Boolean,
+    required: true
   }
+}, {
+  timestamps: true
 })
 
 const urlSchema = new Schema({
@@ -45,33 +30,51 @@ const urlSchema = new Schema({
     required: true
   },
   owner: {
-    type: String,
+    type: ObjectId,
     required: true
   },
   expirationDate: {
     type: Date,
     required: true
   },
-  active: { 
-    type: Boolean, 
-    default: true 
+  active: {
+    type: Boolean,
+    default: true
   },
   password: String,
-  restriction: restrictionSchema,
-  accesses: [accessSchema],
+  restriction: {
+    method: {
+      type: String,
+      required: true
+    },
+    limitAllIpPerDay: {
+      type: Number,
+      default: 86400
+    },
+    timeOutDuration: {
+      type: Number,
+      default: 5
+    }
+  },
+  accesses: {
+    count: {
+      type: Number,
+      default: 0
+    },
+    list: [accessSchema]
+  },
   active: {
     type: Boolean,
     default: true
   }
 })
 
-
 urlSchema.pre('save', async function() {
   const hash = await bcrypt.hashSync(this.password, saltRounds)
   this.password = hash
 })
 
-urlSchema.methods.comparePassword = async function(candidatePassword) {
+urlSchema.methods.validatePassword = async function(candidatePassword) {
   return await (bcrypt.compareSync(candidatePassword, this.password))
 }
 

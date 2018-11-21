@@ -3,13 +3,13 @@ import { Component } from "react"
 
 const OptionField = (props) => (
   <div className="form-group form-row align-items-center">
-    <label className="col-sm-4 col-form-label">{props.labelText}</label>
-    <div className="col-sm-8">{props.children}</div>
+    <label className="col-md-4 col-form-label">{props.labelText}</label>
+    <div className="col-md-8">{props.children}</div>
   </div>
 )
 
 
-class Options extends Component {
+export default class Options extends Component {
   constructor(props) {
     super(props)
 
@@ -18,7 +18,7 @@ class Options extends Component {
       customShortened: "",
       password: "",
       confirmedPassword: "",
-      restrictionMethod: "none",
+      restrictionMethod: "None",
       restrictionLimit: 86400,
     }
   }
@@ -105,6 +105,3 @@ class Options extends Component {
     )
   }
 }
-
-
-export default Options
