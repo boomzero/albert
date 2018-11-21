@@ -11,7 +11,6 @@ const isUrlOwner = async (userId, shortened) => {
   return url.owner.toString() === userId
 }
 
-
 class UrlController {
   static async getAllOfUser(req, res) {
     try {

@@ -50,7 +50,6 @@ process.on("SIGTERM", () => {
   gracefulShutdown("Heroku app termination", () => process.exit(0))
 })
 
-
 // BRING IN YOUR SCHEMAS & MODELS
 require("./url")
 require("./user")

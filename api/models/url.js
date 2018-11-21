@@ -6,7 +6,6 @@ const saltRounds = 10
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
-
 const accessSchema = new Schema({
   ipv4: {
     type: String,
@@ -69,7 +68,6 @@ const urlSchema = new Schema({
     default: true
   }
 })
-
 
 urlSchema.pre('save', async function() {
   const hash = await bcrypt.hashSync(this.password, saltRounds)

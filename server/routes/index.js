@@ -47,7 +47,6 @@ router.route('/auth/google/callback')
 router.route("/:shortened")
   .get(redirector.handle)
 
-
 // Routing examples
 // router.route("/private")
 //   .post(passport.authenticate("jwt"), (req, res) => {

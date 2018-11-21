@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 
 const Url = mongoose.model('Url')
 
-
 class Redirector {
   static async handle(req, res, next) {
     Url.findOne({
