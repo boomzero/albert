@@ -14,7 +14,7 @@ class Form extends Component {
       lifespan: 14,
       customShortened: "",
       password: "",
-      restrictionMethod: "none",
+      restrictionMethod: "None",
       restrictionLimit: 86400,
     }
   }

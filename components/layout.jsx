@@ -5,11 +5,11 @@ import Footer from "./footer"
 const Layout = (props) => (
   <>
     <Topbar />
-    <div className="topbar-avoidance">{props.children}</div>
+    <div className="albert-topbar-avoidance">{props.children}</div>
     <Footer />
 
     <style jsx>{`
-      .topbar-avoidance {
+      .albert-topbar-avoidance {
         margin-top: 56px;
       }
     `}</style>

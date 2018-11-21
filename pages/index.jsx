@@ -38,12 +38,10 @@ export default class UrlShortening extends Component {
         <Hero backgroundImage="url(../static/home-hero-background.jpg)"
           height="calc(100vh - 56px)"
         >
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-10 col-sm-8">
-                <Form onRespond={this.handleRespond} />
-                {this.getAnnouncement()}
-              </div>
+          <div className="row justify-content-center">
+            <div className="col-10 col-md-8 col-xl-6">
+              <Form onRespond={this.handleRespond} />
+              {this.getAnnouncement()}
             </div>
           </div>
         </Hero>
