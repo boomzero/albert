@@ -4,11 +4,10 @@ const shortid = require('shortid')
 
 const Url = mongoose.model('Url')
 
-const isUrlOwner = async (userId, shortened) => {
-  const url = await Url.findOne({
-    shortened: shortened
-  })
-  return url.owner.toString() === userId
+const isUrlOwner = async (user, shortened) => {
+  if (!user) return false
+  const url = await Url.findOne({ shortened })
+  return url.owner.toString() === user.id
 }
 
 class UrlController {
@@ -25,7 +24,6 @@ class UrlController {
 
   static async getOne(req, res) {
     try {
-      console.log(req.params.shortened)
       const url = await Url.findOne({
         shortened: req.params.shortened
       })
@@ -41,7 +39,7 @@ class UrlController {
       const url = await Url.create({
         shortened: _shortened,
         original: req.body.original,
-        owner: req.user ? req.user.username : "guest",
+        owner: req.user ? req.user.id : null,
         expirationDate: req.body.expirationDate,
         password: req.body.password,
         restriction: {
@@ -57,7 +55,7 @@ class UrlController {
 
   static async updateOne(req, res) {
     try {
-      if (!isUrlOwner(req.user.id, req.params.shortened))
+      if (!isUrlOwner(req.user, req.params.shortened))
         return res.status(403).json({
           success: false
         })
@@ -75,7 +73,7 @@ class UrlController {
 
   static async deleteOne(req, res) {
     try {
-      if (!isUrlOwner(req.user.id, req.params.shortened))
+      if (!isUrlOwner(req.user, req.params.shortened))
         return res.status(403).json({
           success: false
         })

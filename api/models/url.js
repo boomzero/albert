@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt')
 
 const saltRounds = 10
 const Schema = mongoose.Schema
-const ObjectId = Schema.Types.ObjectId
 
 const accessSchema = new Schema({
   ipv4: {
@@ -29,10 +28,7 @@ const urlSchema = new Schema({
     type: String,
     required: true
   },
-  owner: {
-    type: ObjectId,
-    required: true
-  },
+  owner: Schema.Types.ObjectId,
   expirationDate: {
     type: Date,
     required: true
