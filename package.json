@@ -1,11 +1,12 @@
 {
-  "name": "Albert",
-  "version": "0.1.0",
+  "name": "albert",
+  "version": "0.3.0",
   "description": "Albert",
   "main": "app.js",
   "scripts": {
-    "dev": "node app.js",
     "build": "next build",
+    "dev": "node app.js",
+    "postinstall": "next build",
     "start": "NODE_ENV=production PORT=3001 node app.js"
   },
   "author": "Luong Quang Manh",
@@ -16,21 +17,23 @@
     "body-parser": "^1.18.3",
     "dayjs": "^1.7.7",
     "express": "^4.16.4",
-    "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.3.4",
+    "morgan": "^1.9.1",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.3.12",
     "next": "^7.0.2",
     "next-optimized-images": "^1.4.1",
     "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "randomstring": "^1.1.5",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "react-google-recaptcha": "^1.0.5",
     "shortid": "^2.2.13"
   },
   "repository": "github:lqmanh/albert",
   "devDependencies": {
-    "morgan": "^1.9.1",
     "nodemon": "^1.18.4"
   }
 }
