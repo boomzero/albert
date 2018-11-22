@@ -1,5 +1,12 @@
-# ALBERT v0.2.1
+# ALBERT v0.3.0
 > https://albert-demo.herokuapp.com
+
+# Frameworks and Libraries
+- Node.js + Express
+- Next.js
+- React
+- Bootstrap
+- Passport + JWT
 
 ## Documentation v0.3.0
 Read more [here](https://github.com/lqmanh/albert/blob/master/docs/Documentation-v0.3.0.pdf).
