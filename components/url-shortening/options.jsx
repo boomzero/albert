@@ -58,9 +58,7 @@ export default class Options extends Component {
   render() {
     return (
       <>
-        <button className="btn btn-outline-light mb-3" type="button"
-          data-toggle="collapse" data-target="#url-shortening-options"
-        >
+        <button className="btn btn-outline-light mb-3" data-toggle="collapse" data-target="#url-shortening-options">
           Options
         </button>
 
