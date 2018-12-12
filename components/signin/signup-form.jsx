@@ -1,6 +1,8 @@
 import { Component } from 'react'
 import axios from 'axios'
 
+import FormGroup, { Username, ConfirmedPassword } from '../common/form-groups'
+
 
 export default class SigninForm extends Component {
   constructor(props) {
@@ -12,16 +14,17 @@ export default class SigninForm extends Component {
       lastName: '',
       email: '',
       password: '',
-      confirmedPassword: '',
     }
   }
 
   handleChange = (event) => this.setState({ [event.target.name]: event.target.value })
 
+  handleChangePassword = (data) => this.setState({ password: data.password })
+
   handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      await axios.post("/api/users", {
+      await axios.post('/api/users', {
         username: this.state.username,
         firstName: this.state.firstName,
         lastName: this.state.lastName,
@@ -37,34 +40,24 @@ export default class SigninForm extends Component {
     return (
       <div className='card card-body'>
         <form className='form' onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label>Username</label>
-            <input className="form-control" name='username' type="text" onChange={this.handleChange} required />
-          </div>
-          <div className="form-group">
-            <label>Full name</label>
-            <div className="input-group">
-              <input className="form-control" name='firstName' type="text" placeholder='First Name'
-                onChange={this.handleChange} required
+          <Username name='username' value={this.state.username} onChange={this.handleChange} required={true} />
+          <FormGroup label='Full name'>
+            <div className='input-group'>
+              <input className='form-control' name='firstName' type='text'
+                value={this.state.firstName} placeholder='First Name' onChange={this.handleChange} required={true}
               />
-              <input className="form-control" name='lastName' type="text" placeholder='Last Name'
-                onChange={this.handleChange} required
+              <input className='form-control' name='lastName' type='text'
+                value={this.state.lastName} placeholder='Last Name' onChange={this.handleChange} required={true}
               />
             </div>
-          </div>
-          <div className="form-group">
-            <label>Email</label>
-            <input className="form-control" name='email' type="email" onChange={this.handleChange} required />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input className="form-control" name='password' type="password" onChange={this.handleChange} required />
-          </div>
-          <div className="form-group">
-            <label>Confirm password</label>
-            <input className="form-control" name='confirmedPassword' type="password" onChange={this.handleChange} required />
-          </div>
-          <button className="btn btn-primary" type="submit">Sign Up</button>
+          </FormGroup>
+          <FormGroup label='Email'>
+            <input className='form-control' name='email' type='email'
+              value={this.state.email} onChange={this.handleChange} required={true}
+            />
+          </FormGroup>
+          <ConfirmedPassword onChange={this.handleChangePassword} required={true} />
+          <button className='btn btn-primary' type='submit'>Sign Up</button>
         </form>
       </div>
     )

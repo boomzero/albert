@@ -14,11 +14,11 @@ export default class Form extends Component {
       lifespan: 14,
       customShortened: "",
       password: "",
-      confirmedPassword: "",
       restrictionMethod: "None",
       restrictionLimit: 86400,
     }
   }
+
   handleChange = (event) => this.setState({ [event.target.name]: event.target.value })
 
   handleChangeOptions = (optionsState) => this.setState(Object.assign(this.state, optionsState))
