@@ -3,14 +3,13 @@ import Router from 'next/router'
 import axios from "axios"
 import dayjs from 'dayjs'
 
-import Hero from '../components/hero'
 import Layout from "../components/layout"
 import { Captcha, Timeout } from '../components/redirecting-restriction'
 
 
 const Page = (props) => (
   <Layout>
-    <Hero height="calc(100vh - 56px)">
+    <section className='container p-5'>
       <div className="row justify-content-center">
         <div className="col-10 col-md-8 col-xl-6">
           <div className="card">
@@ -24,7 +23,7 @@ const Page = (props) => (
           </div>
         </div>
       </div>
-    </Hero>
+    </section>
   </Layout>
 )
 
@@ -33,9 +32,7 @@ export default class Redirecting extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      urlData: null,
-    }
+    this.state = { urlData: null }
   }
 
   async componentDidMount() {

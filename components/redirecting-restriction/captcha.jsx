@@ -8,6 +8,7 @@ import captchaConfigs from "../../configs/captcha"
 export default class Captcha extends Component {
   constructor(props) {
     super(props)
+
     this.captchaRef = createRef()
   }
 
@@ -17,10 +18,8 @@ export default class Captcha extends Component {
 
   render() {
     return (
-      <ReCAPTCHA ref={this.captchaRef}
-        sitekey={captchaConfigs.RECAPTCHA_CLIENT_KEY}
-        onChange={this.handleChange}
-        onExpired={this.handleExpired}
+      <ReCAPTCHA ref={this.captchaRef} sitekey={captchaConfigs.RECAPTCHA_CLIENT_KEY}
+        onChange={this.handleChange} onExpired={this.handleExpired}
       />
     )
   }

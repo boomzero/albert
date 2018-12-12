@@ -6,9 +6,7 @@ export default class Timeout extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      remaining: this.props.duration,
-    }
+    this.state = { remaining: this.props.duration }
   }
 
   componentDidMount() {
