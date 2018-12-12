@@ -23,17 +23,44 @@ export default class Options extends Component {
     }
   }
 
-  handleChange = (event) => this.setState(
-    { [event.target.name]: event.target.value },
-    () => this.props.onChange(this.state)
-  )
+  handleChange = (event) => {
+    const { name, value } = event.target
+    this.setState({ [name]: value })
+    this.props.onChange({ [name]: value })
+  }
+
+  getCustomShortened() {
+    const isValid = this.state.customShortened.match(/^[A-Za-z0-9-]*$/)
+    return (
+      <OptionField label="Custom URL">
+        <input className={`form-control ${isValid ? '' : 'is-invalid'}`} type="text"
+          name='customShortened' value={this.state.customShortened} onChange={this.handleChange}
+        />
+        <div className="invalid-feedback">Must contains only A-Z, a-z, 0-9 and -</div>
+      </OptionField>
+    )
+  }
+
+  getPassword() {
+    const isValid = !this.state.password || this.state.password.length >= 8
+    return (
+      <OptionField label="Password">
+        <input className={`form-control ${isValid ? '' : 'is-invalid'}`} type="password"
+          name="password" value={this.state.password} onChange={this.handleChange}
+        />
+        <div className="invalid-feedback">Must have at least 8 characters</div>
+      </OptionField>
+    )
+  }
 
   getConfirmPassword() {
+    const isValid = this.state.confirmedPassword === this.state.password
     return (
       <OptionField label="Confirm password">
-        <input className="form-control" type="password" name="confirmedPassword"
-          value={this.state.confirmedPassword} onChange={this.handleChange} required
+        <input className={`form-control ${isValid ? '': 'is-invalid'}`} type="password"
+          name="confirmedPassword" value={this.state.confirmedPassword} onChange={this.handleChange} required
         />
+        <div className="invalid-feedback">Password not match</div>
       </OptionField>
     )
   }
@@ -72,17 +99,11 @@ export default class Options extends Component {
                 </div>
               </div>
             </OptionField>
-            <OptionField label="Custom URL">
-              <input className="form-control" type="text" name="customShortened" placeholder="my-custom-url"
-                value={this.state.customShortened} onChange={this.handleChange}
-              />
-            </OptionField>
-            <OptionField label="Password">
-              <input className="form-control" type="password" name="password"
-                value={this.state.password} onChange={this.handleChange}
-              />
-            </OptionField>
-            {this.state.password ? this.getConfirmPassword() : null}
+            {[
+              this.getCustomShortened(),
+              this.getPassword(),
+              this.state.password ? this.getConfirmPassword() : null
+            ]}
             <OptionField label="Restriction method">
               <select className="custom-select w-100" name="restrictionMethod"
                 value={this.state.restrictionMethod} onChange={this.handleChange}
