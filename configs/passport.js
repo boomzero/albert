@@ -10,23 +10,21 @@ const User = require("../api/models/user")
 const authConfigs = require("../configs/constants").auth
 
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser(function(user, done) {
   done(null, user)
 })
 
 passport.use("local", new LocalStrategy({
     usernameField: "username",
     passwordField: "password",
-    session: false
   },
   (username, password, done) => {
     try {
-      User.findOne({
-        username: username
-      }, {
-        password: true
-      }).exec((err, user) => { // include password in query for validation
-        if (!user || !user.validatePassword(password)) return done(null, false)
+      User.findOne({ username }, { password: true }).exec(async (err, user) => {
+        if (user) {
+          const valid = await user.validatePassword(password)
+          if (!valid) return done(null, false)
+        }
         token = jwt.sign({}, authConfigs.jwt.SECRET, {
           audience: user.id,
           expiresIn: authConfigs.jwt.EXPIRESIN

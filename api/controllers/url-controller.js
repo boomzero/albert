@@ -11,23 +11,32 @@ const isUrlOwner = async (user, shortened) => {
 }
 
 class UrlController {
+  static async getOne(req, res) {
+    try {
+      const url = await Url.findOne({ shortened: req.params.shortened })
+      res.json(url)
+    } catch (err) {
+      res.send(err)
+    }
+  }
+
+  static async validatePassword(req, res) {
+    try {
+      Url.findOne({ shortened: req.params.shortened }, { password: true }).exec(async (err, url) => {
+        if (!url.password) return res.json({ success: true })
+        return res.json({ success: await url.validatePassword(req.body.password) })
+      })
+    } catch (err) {
+      res.send(err)
+    }
+  }
+
   static async getAllOfUser(req, res) {
     try {
       const urls = await Url.find({
         owner: req.user.id
       })
       res.json(urls)
-    } catch (err) {
-      res.send(err)
-    }
-  }
-
-  static async getOne(req, res) {
-    try {
-      const url = await Url.findOne({
-        shortened: req.params.shortened
-      })
-      res.json(url)
     } catch (err) {
       res.send(err)
     }

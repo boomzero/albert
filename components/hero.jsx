@@ -6,7 +6,6 @@ export default (props) => (
 
     <style jsx>{`
     .albert-hero {
-      background-color: ${props.backgroundColor || "transparent"};
       background-image: ${props.backgroundImage};
       background-position: center center;
       background-size: cover;

@@ -1,5 +1,4 @@
 import { Component } from "react"
-import dayjs from "dayjs"
 
 import Hero from "../components/hero"
 import Layout from "../components/layout"
@@ -10,34 +9,33 @@ export default class Index extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      result: { success: false }
-    }
+    this.state = { success: false, responseData: null }
   }
 
-  handleRespond = (result) => {
-    this.setState({ result })
+  handleRespond = (res) => {
+    let data = res.data
+    let success = false
+    if (data.shortened) {
+      data.shortened = `${this.window.location.origin}/${data.shortened}`
+      success = true
+    }
+    this.setState({ success, responseData: data })
     $("#url-shortening-announcement").modal("show")
   }
 
   getAnnouncement() {
-    const result = this.state.result
-    if (!result.success) return <Announcement success={false} />
-    const data = {
-      shortened: result.shortened,
-      expirationDateStr: dayjs(result.expirationDate).format("HH:mm MMM DD, YYYY"),
-      restrictionMethod: result.restriction.method,
-      restrictionLimit: result.restriction.limitAllIpPerDay,
-    }
-    return <Announcement success={true} data={data} />
+    if (!this.state.success) return <Announcement success={false} />
+    return <Announcement success={true} data={this.state.responseData} />
+  }
+
+  componentDidMount() {
+    this.window = window
   }
 
   render() {
     return (
       <Layout>
-        <Hero backgroundImage="url(../static/home-hero-background.jpg)"
-          height="calc(100vh - 56px)"
-        >
+        <Hero backgroundImage="url(../static/home-hero-background.jpg)" height="calc(100vh - 56px)">
           <div className="row justify-content-center">
             <div className="col-10 col-md-8 col-xl-6">
               <Form onRespond={this.handleRespond} />

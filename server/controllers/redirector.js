@@ -5,14 +5,11 @@ const Url = mongoose.model('Url')
 
 class Redirector {
   static async handle(req, res, next) {
-    Url.findOne({
-      shortened: req.params.shortened
-    }, {
-      'original': true
-    }).exec((err, data) => {
+    const shortened = req.params.shortened
+    Url.findOne({ shortened }, { 'original': true }).exec((err, data) => {
       if (err) return res.send(err)
       if (!data) return next()
-      else return res.redirect(data.original)
+      else return res.redirect(`/redirecting?shortened=${shortened}`)
     })
   }
 }

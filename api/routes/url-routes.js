@@ -12,6 +12,7 @@ router.route('/')
 
 router.route('/:shortened')
   .get(urlController.getOne)
+  .post(urlController.validatePassword)
   .put(passport.authenticate('jwt'), urlController.updateOne)
   .delete(passport.authenticate('jwt'), urlController.deleteOne)
 
