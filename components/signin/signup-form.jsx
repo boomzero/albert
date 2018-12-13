@@ -38,28 +38,26 @@ export default class SigninForm extends Component {
 
   render() {
     return (
-      <div className='card card-body'>
-        <form className='form' onSubmit={this.handleSubmit}>
-          <Username name='username' value={this.state.username} onChange={this.handleChange} required={true} />
-          <FormGroup label='Full name'>
-            <div className='input-group'>
-              <input className='form-control' name='firstName' type='text'
-                value={this.state.firstName} placeholder='First Name' onChange={this.handleChange} required={true}
-              />
-              <input className='form-control' name='lastName' type='text'
-                value={this.state.lastName} placeholder='Last Name' onChange={this.handleChange} required={true}
-              />
-            </div>
-          </FormGroup>
-          <FormGroup label='Email'>
-            <input className='form-control' name='email' type='email'
-              value={this.state.email} onChange={this.handleChange} required={true}
+      <form className='form' onSubmit={this.handleSubmit}>
+        <Username name='username' value={this.state.username} onChange={this.handleChange} required={true} />
+        <FormGroup label='Full name'>
+          <div className='input-group'>
+            <input className='form-control' name='firstName' type='text'
+              value={this.state.firstName} placeholder='First Name' onChange={this.handleChange} required={true}
             />
-          </FormGroup>
-          <ConfirmedPassword onChange={this.handleChangePassword} required={true} />
-          <button className='btn btn-primary' type='submit'>Sign Up</button>
-        </form>
-      </div>
+            <input className='form-control' name='lastName' type='text'
+              value={this.state.lastName} placeholder='Last Name' onChange={this.handleChange} required={true}
+            />
+          </div>
+        </FormGroup>
+        <FormGroup label='Email'>
+          <input className='form-control' name='email' type='email'
+            value={this.state.email} onChange={this.handleChange} required={true}
+          />
+        </FormGroup>
+        <ConfirmedPassword onChange={this.handleChangePassword} required={true} />
+        <button className='btn btn-primary' type='submit'>Sign Up</button>
+      </form>
     )
   }
 }

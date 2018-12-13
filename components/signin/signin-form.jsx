@@ -31,13 +31,11 @@ export default class SigninForm extends Component {
 
   render() {
     return (
-      <div className='card card-body'>
-        <form className='form' onSubmit={this.handleSubmit}>
-          <Username name='username' value={this.state.username} onChange={this.handleChange} required={true} />
-          <Password name='password' value={this.state.password} onChange={this.handleChange} required={true} />
-          <button className='btn btn-primary' type='submit'>Sign In</button>
-        </form>
-      </div>
+      <form className='form' onSubmit={this.handleSubmit}>
+        <Username name='username' value={this.state.username} onChange={this.handleChange} required={true} />
+        <Password name='password' value={this.state.password} onChange={this.handleChange} required={true} />
+        <button className='btn btn-primary' type='submit'>Sign In</button>
+      </form>
     )
   }
 }
