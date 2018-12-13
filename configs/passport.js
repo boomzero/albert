@@ -1,3 +1,4 @@
+
 const jwt = require("jsonwebtoken")
 const passport = require("passport")
 const ExtractJwt = require("passport-jwt").ExtractJwt
@@ -21,10 +22,9 @@ passport.use("local", new LocalStrategy({
   (username, password, done) => {
     try {
       User.findOne({ username }, { password: true }).exec(async (err, user) => {
-        if (user) {
-          const valid = await user.validatePassword(password)
-          if (!valid) return done(null, false)
-        }
+        if (!user) return done(null, false)
+        const valid = await user.validatePassword(password)
+        if (!valid) return done(null, false)
         token = jwt.sign({}, authConfigs.jwt.SECRET, {
           audience: user.id,
           expiresIn: authConfigs.jwt.EXPIRESIN
@@ -85,4 +85,3 @@ passport.use("google", new GoogleStrategy({
       return done(err, false)
     }
   }
-))
