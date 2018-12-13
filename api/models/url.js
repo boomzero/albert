@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
 
 
 const Schema = mongoose.Schema
@@ -66,8 +67,12 @@ const urlSchema = new Schema({
   }
 })
 
-urlSchema.methods.validatePassword = function(candidate) {
-  return candidate === this.password
+urlSchema.pre('save', async function() {
+  this.password = await bcrypt.hashSync(this.password, saltRounds)
+})
+
+urlSchema.methods.validatePassword = async function(candidate) {
+  return await bcrypt.compareSync(candidate, this.password)
 }
 
 

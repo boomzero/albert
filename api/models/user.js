@@ -31,8 +31,12 @@ const userSchema = new Schema({
   }
 })
 
-userSchema.methods.validatePassword = function(candidate) {
-  return candidate === this.password
+userSchema.pre('save', async function() {
+  this.password = await bcrypt.hashSync(this.password, saltRounds)
+})
+
+userSchema.methods.validatePassword = async function(candidate) {
+  return await bcrypt.compareSync(candidate, this.password)
 }
 
 
