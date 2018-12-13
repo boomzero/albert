@@ -19,8 +19,6 @@ export default class Timeout extends Component {
 
   render() {
     if (this.state.remaining <= 0) Router.push(this.props.redirectTo)
-    return (
-      <p>You will be redirected in {this.state.remaining}s.</p>
-    )
+    return <p className='card-text'>You will be redirected in {this.state.remaining}s.</p>
   }
 }

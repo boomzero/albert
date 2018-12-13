@@ -27,6 +27,32 @@ const Page = (props) => (
   </Layout>
 )
 
+const ExpiredPage = (props) => (
+  <Page title="URL Expired"
+    message={`This URL has been expired since ${props.since.format("MMM DD, YYYY HH:mm:ss")}.`}
+  />
+)
+
+const DeactivatedPage = (props) => <Page title="URL Deactivated" message='This URL has been deactivated by the owner.' />
+
+const PasswordPage = (props) => null
+
+const TimeoutPage = (props) => (
+  <Page title='URL Restricted'>
+    <Timeout duration={props.duration} redirectTo={props.redirectTo} />
+  </Page>
+)
+
+const CaptchaPage = (props) => (
+  <Page title='URL Restricted'>
+    <Captcha redirectTo={props.redirectTo} />
+  </Page>
+)
+
+const BlockedPage = (props) => (
+  <Page title='URL Blocked' message='The number of accesses has exceeded the limit of this URL.' />
+)
+
 
 export default class Redirecting extends Component {
   constructor(props) {
@@ -37,37 +63,27 @@ export default class Redirecting extends Component {
 
   async componentDidMount() {
     const res = await axios.get(`/api/urls/${Router.query.shortened}`)
-    this.setState({ urlData: res.data })
+    const data = res.data
+    data.restriction.limitAllIpPerDay = 1
+    data.accesses.count = 1
+    data.restriction.method = 'CAPTCHA'
+    this.setState({ urlData: data })
   }
 
   render() {
     const urlData = this.state.urlData
     if (!urlData) return null
-    if (!urlData.active) return (
-      <Page title="URL Deactivated" message='This URL has been deactivated by the owner.' />
-    )
+
     const expirationDayJs = dayjs(urlData.expirationDate)
-    if (expirationDayJs.isBefore(dayjs())) return (
-      <Page title="URL Expired"
-        message={`This URL has been expired since ${expirationDayJs.format("HH:mm MMM DD, YYYY")}.`}
-      />
-    )
+    if (expirationDayJs.isBefore(dayjs())) return <ExpiredPage since={expirationDayJs} />
+    if (!urlData.active) return <DeactivatedPage />
+    //
     if (urlData.accesses.count + 1 > urlData.restriction.limitAllIpPerDay) {
       if (urlData.restriction.method === 'Timeout') return (
-        <Page title='URL Restricted with Time Out'>
-          <Timeout duration={urlData.restriction.timeOutDuration} redirectTo={urlData.original} />
-        </Page>
+        <TimeoutPage duration={urlData.restriction.timeOutDuration} redirectTo={urlData.original} />
       )
-      else if (urlData.restriction.method === 'CAPTCHA') return (
-        <Page title='URL Restricted with CAPTCHA'>
-          <Captcha redirectTo={urlData.original} />
-        </Page>
-      )
-      else if (urlData.restriction.method === 'Block') return (
-        <Page title='URL Blocked'
-          message='The number of accesses has exceeded the limit of this URL.'
-        />
-      )
+      else if (urlData.restriction.method === 'CAPTCHA') return <CaptchaPage redirectTo={urlData.original} />
+      else if (urlData.restriction.method === 'Block') return <BlockedPage />
     }
     Router.push(urlData.original)
     return null

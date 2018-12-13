@@ -25,7 +25,7 @@ export default class Index extends Component {
     if (!result.success) return <Announcement success={false} />
     const data = {
       shortened: result.shortened,
-      expirationDateStr: dayjs(result.expirationDate).format("HH:mm MMM DD, YYYY"),
+      expirationDateStr: dayjs(result.expirationDate).format("MMM DD, YYYY HH:mm:ss"),
       restrictionMethod: result.restriction.method,
       restrictionLimit: result.restriction.limitAllIpPerDay,
     }
