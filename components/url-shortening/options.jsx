@@ -1,20 +1,7 @@
 import { Component } from "react"
 
-import FormGroup, { ConfirmedPassword } from '../common/form-groups'
+import FormGroup, { ConfirmedPassword, ExpireIn, RestrictionLimit, RestrictionMethod } from '../common/form-groups'
 
-
-const ExpireIn = (props) => (
-  <FormGroup label="Expire in" horizontal={true}>
-    <div className="input-group">
-      <input className="form-control" type="number" name="lifespan"
-        min="1" max="14" placeholder="14" value={props.value} onChange={props.onChange} required={props.required}
-      />
-      <div className="input-group-append">
-        <div className="input-group-text">days</div>
-      </div>
-    </div>
-  </FormGroup>
-)
 
 const CustomShortened = (props) => {
   const valid = !props.value || props.value.match(/^[A-Za-z0-9-]{6,}$/)
@@ -28,32 +15,6 @@ const CustomShortened = (props) => {
     </FormGroup>
   )
 }
-
-const RestrictionMethod = (props) => (
-  <FormGroup label="Restriction method" horizontal={true}>
-    <select className="custom-select w-100" name={props.name}
-      value={props.value} onChange={props.onChange} required={props.required}
-    >
-      <option value="None">None</option>
-      <option value="Timeout">Timeout (5 seconds)</option>
-      <option value="CAPTCHA">CAPTCHA</option>
-      <option value="Block">Block</option>
-    </select>
-  </FormGroup>
-)
-
-const RestrictionLimit = (props) => (
-  <FormGroup label="Restriction limit" horizontal={true}>
-    <div className="input-group">
-      <input className="form-control" name={props.name} type="number"
-        min="1" placeholder="86400" value={props.value} onChange={props.onChange} required={props.required}
-      />
-      <div className="input-group-append">
-        <div className="input-group-text">requests/day</div>
-      </div>
-    </div>
-  </FormGroup>
-)
 
 
 export default class Options extends Component {
