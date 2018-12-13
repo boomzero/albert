@@ -31,12 +31,12 @@ const userSchema = new Schema({
   }
 })
 
-userSchema.pre('save', async function() {
-  this.password = await bcrypt.hashSync(this.password, saltRounds)
+userSchema.pre('save', function() {
+  this.password = bcrypt.hashSync(this.password, saltRounds)
 })
 
-userSchema.methods.validatePassword = async function(candidate) {
-  return await bcrypt.compareSync(candidate, this.password)
+userSchema.methods.validatePassword = function(candidate) {
+  return bcrypt.compareSync(candidate, this.password)
 }
 
 

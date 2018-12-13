@@ -54,7 +54,8 @@ passport.use("jwt", new JwtStrategy({
   }
 ))
 
-passport.use("google", new GoogleStrategy({
+passport.use("google", new GoogleStrategy(
+  {
     clientID: authConfigs.google.CLIENT_ID,
     clientSecret: authConfigs.google.CLIENT_SECRET,
     callbackURL: authConfigs.google.CALLBACK_URL,
@@ -62,10 +63,7 @@ passport.use("google", new GoogleStrategy({
   },
   async (req, accessToken, refreshToken, profile, done) => {
     try {
-      const user = await User.findOne({
-        email: profile.emails[0].value
-      })
-
+      const user = await User.findOne({ email: profile.emails[0].value })
       if (!user) {
         user = await User.create({
           username: profile.emails[0].value,
@@ -75,13 +73,10 @@ passport.use("google", new GoogleStrategy({
           email: profile.emails[0].value
         })
       }
-
-      token = jwt.sign({}, authConfigs.jwt.SECRET, {
-        audience: user.id,
-        expiresIn: authConfigs.jwt.SECRET
-      })
+      token = jwt.sign({}, authConfigs.jwt.SECRET, { audience: user.id, expiresIn: authConfigs.jwt.SECRET })
       return done(null, user, token)
     } catch (err) {
       return done(err, false)
     }
   }
+))
