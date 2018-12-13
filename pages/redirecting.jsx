@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 
 import Layout from "../components/layout"
 import { Captcha, Timeout } from '../components/redirecting-restriction'
+import { Password } from '../components/common/form-groups'
 
 
 const Page = (props) => (
@@ -13,7 +14,7 @@ const Page = (props) => (
       <div className="row justify-content-center">
         <div className="col-10 col-md-8 col-xl-6">
           <div className="card">
-            <div class="card-header">
+            <div className="card-header">
               <h5 className="mb-0">{props.title}</h5>
             </div>
             <div className="card-body">
@@ -35,7 +36,50 @@ const ExpiredPage = (props) => (
 
 const DeactivatedPage = (props) => <Page title="URL Deactivated" message='This URL has been deactivated by the owner.' />
 
-const PasswordPage = (props) => null
+class PasswordPage extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      password: '',
+      dirty: false,
+      passwordValid: null
+    }
+  }
+
+  validate = async (dirty=false) => {
+    const res = await axios.post(`/api/urls/${Router.query.shortened}`, { password: this.state.password })
+    this.setState({ dirty, passwordValid: res.data.success })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.validate(true)
+  }
+
+  componentDidMount() {
+    this.validate()
+  }
+
+  render() {
+    if (this.state.passwordValid === null) return null
+    if (this.state.passwordValid) {
+      this.props.onValid()
+      return null
+    }
+    return (
+      <Page title='Password validation required'>
+        <form className='form' onSubmit={this.handleSubmit}>
+          <Password name='password' value={this.state.password}
+            onChange={(event) => this.setState({ password: event.target.value })} required={true}
+          />
+          <button className='btn btn-primary' type='submit'>Validate</button>
+        </form>
+        {this.state.dirty ? <small className='text-danger'>Password incorrect</small> : null}
+      </Page>
+    )
+  }
+}
 
 const TimeoutPage = (props) => (
   <Page title='URL Restricted'>
@@ -58,16 +102,12 @@ export default class Redirecting extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { urlData: null }
+    this.state = { urlData: null, passwordValid: false }
   }
 
   async componentDidMount() {
     const res = await axios.get(`/api/urls/${Router.query.shortened}`)
-    const data = res.data
-    data.restriction.limitAllIpPerDay = 1
-    data.accesses.count = 1
-    data.restriction.method = 'CAPTCHA'
-    this.setState({ urlData: data })
+    this.setState({ urlData: res.data })
   }
 
   render() {
@@ -77,7 +117,7 @@ export default class Redirecting extends Component {
     const expirationDayJs = dayjs(urlData.expirationDate)
     if (expirationDayJs.isBefore(dayjs())) return <ExpiredPage since={expirationDayJs} />
     if (!urlData.active) return <DeactivatedPage />
-    //
+    if (!this.state.passwordValid) return <PasswordPage onValid={() => this.setState({ passwordValid: true })} />
     if (urlData.accesses.count + 1 > urlData.restriction.limitAllIpPerDay) {
       if (urlData.restriction.method === 'Timeout') return (
         <TimeoutPage duration={urlData.restriction.timeOutDuration} redirectTo={urlData.original} />

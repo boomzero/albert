@@ -18,7 +18,6 @@ export default class SigninForm extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(this.state)
     try {
       await axios.post('/auth/local', {
         username: this.state.username,

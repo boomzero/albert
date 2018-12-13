@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import dayjs from 'dayjs'
 
 
 const CopyButton = (props) => {
@@ -90,8 +91,8 @@ export default (props) => {
   return (
     <AnnouncementTemplate title="Success">
       <ShortenedUrl shortened={props.data.shortened} />
-      <Notice expirationDateStr={props.data.expirationDateStr}
-        restrictionMethod={props.data.restrictionMethod} restrictionLimit={props.data.restrictionLimit}
+      <Notice expirationDateStr={dayjs(props.data.expirationDate).format("MMM DD, YYYY HH:mm:ss")}
+        restrictionMethod={props.data.restriction.method} restrictionLimit={props.data.restriction.limitAllIpPerDay}
       />
     </AnnouncementTemplate>
   )

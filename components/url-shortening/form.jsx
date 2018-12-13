@@ -34,19 +34,10 @@ export default class Form extends Component {
         restrictionMethod: this.state.restrictionMethod,
         restrictionLimit: this.state.restrictionLimit
       })
-      let result = res.data
-      if (result.shortened) {
-        result.success = true
-        result.shortened = `${this.windowObject.location.origin}/${result.shortened}`
-        this.props.onRespond(result)
-      }
+      this.props.onRespond(res)
     } catch (err) {
       console.log(err)
     }
-  }
-
-  componentDidMount() {
-    this.windowObject = window
   }
 
   render() {

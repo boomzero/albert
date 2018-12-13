@@ -36,7 +36,10 @@ export default class Options extends Component {
     this.props.onChange({ [name]: value })
   }
 
-  handleChangePassword = (data) => this.setState({ password: data.password })
+  handleChangePassword = (data) => {
+    this.setState({ password: data.password })
+    this.props.onChange({ password: data.password })
+  }
 
   render() {
     return (

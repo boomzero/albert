@@ -10,38 +10,21 @@ const router = new express.Router()
 // Local login - email/password
 router.route("/auth/local")
   .post((req, res, next) => {
-    passport.authenticate("local", (err, user, token) => {
-      // internal error
-      if (err || !user) return res.json({
-        success: false
-      })
-
-      return res.json({
-        success: true,
-        user,
-        token
-      })
+    passport.authenticate("local", { session: false }, (err, user, token) => {
+      if (err || !user) return res.json({ success: false })
+      return res.json({ success: true, user, token })
     })(req, res, next)
   })
 
 // Google login
 router.route('/auth/google')
-  .get(passport.authenticate('google', {
-    scope: authConfigs.google.SCOPES
-  }))
+  .get(passport.authenticate('google', { scope: authConfigs.google.SCOPES }))
 router.route('/auth/google/callback')
-  .get(function (req, res, next) {
-    passport.authenticate("google", function (err, user, token) {
-      if (err || !user) return res.json({
-        success: false
-      })
-      else
-        return res.json({
-          success: true,
-          user,
-          token
-        })
-    })(req, res, next);
+  .get(function(req, res, next) {
+    passport.authenticate("google", function(err, user, token) {
+      if (err || !user) return res.json({ success: false })
+      else return res.json({ success: true, user, token })
+    })(req, res, next)
   })
 
 router.route("/:shortened")
