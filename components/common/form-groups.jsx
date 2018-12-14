@@ -2,7 +2,7 @@ import { Component } from 'react'
 
 
 const FormGroup = (props) => (
-  <div className='form-group form-row'>
+  <div className='form-group form-row align-items-center'>
     <label className={`col-12 ${props.horizontal ? 'col-md-4 col-form-label' : ''}`}>{props.label}</label>
     <div className={`col-12 ${props.horizontal ? 'col-md-8 col-form-label' : ''}`}>
       {props.children}
@@ -26,7 +26,7 @@ class ConfirmedPassword extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { data: '', confirmed: '' }
+    this.state = { data: props.value, confirmed: props.value }
   }
 
   isValid = () => this.state.confirmed === this.state.data
@@ -54,6 +54,14 @@ class ConfirmedPassword extends Component {
     )
   }
 }
+
+const Email = (props) => (
+  <FormGroup label='Email'>
+    <input className='form-control' name={props.name} type='email'
+      value={props.value} onChange={props.onChange} required={props.required}
+    />
+  </FormGroup>
+)
 
 const ExpireIn = (props) => (
   <FormGroup label="Expire in" horizontal={true}>
@@ -107,4 +115,4 @@ const Username = (props) => {
 
 
 export default FormGroup
-export { Password, ConfirmedPassword, ExpireIn, RestrictionLimit, RestrictionMethod, Username }
+export { Password, ConfirmedPassword, Email, ExpireIn, RestrictionLimit, RestrictionMethod, Username }

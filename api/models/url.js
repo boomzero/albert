@@ -13,9 +13,11 @@ const accessSchema = new Schema({
   redirected: {
     type: Boolean,
     required: true
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now
   }
-}, {
-  timestamps: true
 })
 
 const urlSchema = new Schema({
@@ -55,13 +57,7 @@ const urlSchema = new Schema({
       default: 5
     }
   },
-  accesses: {
-    count: {
-      type: Number,
-      default: 0
-    },
-    list: [accessSchema]
-  },
+  accesses: [accessSchema],
   active: {
     type: Boolean,
     default: true

@@ -49,7 +49,7 @@ class UrlController {
       const url = await Url.create({
         shortened: _shortened,
         original: req.body.original,
-        owner: req.user ? req.user.id : null,
+        owner: req.user ? req.user.username : null,
         expirationDate: req.body.expirationDate,
         password: req.body.password,
         restriction: {
@@ -88,8 +88,7 @@ class UrlController {
         redirected: req.body.redirected
       }
       await Url.updateOne({ shortened: req.params.shortened }, {
-        $inc: { 'accesses.count': 1 },
-        $push: { 'accesses.list': newAccess }
+        $push: { 'accesses': newAccess }
       })
       res.json({ success: true })
     } catch (err) {
