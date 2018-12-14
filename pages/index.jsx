@@ -35,7 +35,7 @@ export default class Index extends Component {
   render() {
     return (
       <Layout>
-        <Hero backgroundImage="url(../static/home-hero-background.jpg)" height="calc(100vh - 56px)">
+        <Hero backgroundImage="url(../static/hero.jpg)" height="calc(100vh - 56px)">
           <div className="row justify-content-center">
             <div className="col-10 col-md-8 col-xl-6">
               <Form onRespond={this.handleRespond} />

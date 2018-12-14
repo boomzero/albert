@@ -3,8 +3,8 @@ import { Component } from 'react'
 
 const FormGroup = (props) => (
   <div className='form-group form-row'>
-    <label className={`col-12 ${props.horizontal ? 'col-md-4' : ''}`}>{props.label}</label>
-    <div className={`col-12 ${props.horizontal ? 'col-md-8' : ''}`}>
+    <label className={`col-12 ${props.horizontal ? 'col-md-4 col-form-label' : ''}`}>{props.label}</label>
+    <div className={`col-12 ${props.horizontal ? 'col-md-8 col-form-label' : ''}`}>
       {props.children}
       <div className='invalid-feedback'>{props.invalidFeedback}</div>
     </div>

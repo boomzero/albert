@@ -1,3 +1,12 @@
 $enable-shadows: true;
+$theme-colors: (
+  "primary": #2e8b57,
+  "success": #3cb371,
+  "danger": #d32f2f,
+);
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+.form-control:focus {
+  box-shadow: none;
+}
