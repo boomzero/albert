@@ -41,14 +41,14 @@ class ProfileDropdown extends Component {
     return (
       <div className="nav-item dropdown">
         <button class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown">
-          <span className='mr-2'>{`Hi ${this.state.name}`}</span>
+          <span className='mr-2'>Hi <strong>{this.state.name}</strong></span>
         </button>
         <div className="dropdown-menu dropdown-menu-right">
           <Link prefetch href="/dashboard">
-            <a className={`dropdown-item ${pathname === '/dashboard'}`}>Dashboard</a>
+            <a className={`dropdown-item ${pathname === '/dashboard' ? 'active' : ''}`}>Dashboard</a>
           </Link>
-          <Link prefetch href="/settings">
-            <a className={`dropdown-item ${pathname === '/settings'}`}>Settings</a>
+          <Link prefetch href="/profile">
+            <a className={`dropdown-item ${pathname === '/profile' ? 'active' : ''}`}>View Profile</a>
           </Link>
           <a className="dropdown-item text-danger" href='#' onClick={this.signOut}>Sign out</a>
         </div>

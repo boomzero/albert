@@ -2,7 +2,7 @@ import { Component } from 'react'
 
 
 const FormGroup = (props) => (
-  <div className='form-group form-row'>
+  <div className='form-group form-row align-items-center'>
     <label className={`col-12 ${props.horizontal ? 'col-md-4 col-form-label' : ''}`}>{props.label}</label>
     <div className={`col-12 ${props.horizontal ? 'col-md-8 col-form-label' : ''}`}>
       {props.children}
@@ -26,7 +26,7 @@ class ConfirmedPassword extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { data: '', confirmed: '' }
+    this.state = { data: props.value, confirmed: props.value }
   }
 
   isValid = () => this.state.confirmed === this.state.data

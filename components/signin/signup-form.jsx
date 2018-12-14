@@ -30,7 +30,7 @@ export default class SigninForm extends Component {
         username: this.state.username,
         firstName: this.state.firstName,
         lastName: this.state.lastName,
-        email: this.state.lastName,
+        email: this.state.email,
         password: this.state.password,
       })
       let success = false
@@ -66,7 +66,7 @@ export default class SigninForm extends Component {
               value={this.state.email} onChange={this.handleChange} required={true}
             />
           </FormGroup>
-          <ConfirmedPassword onChange={this.handleChangePassword} required={true} />
+          <ConfirmedPassword value={this.state.password} onChange={this.handleChangePassword} required={true} />
           <button className='btn btn-primary' type='submit'>Sign Up</button>
         </form>
         {this.state.dirty ? this.getAnnouncement() : null}
