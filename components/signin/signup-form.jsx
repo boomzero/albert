@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import axios from 'axios'
 
-import FormGroup, { Username, ConfirmedPassword } from '../common/form-groups'
+import FormGroup, { Email, Username, ConfirmedPassword } from '../common/form-groups'
 
 
 export default class SigninForm extends Component {
@@ -61,11 +61,7 @@ export default class SigninForm extends Component {
               />
             </div>
           </FormGroup>
-          <FormGroup label='Email'>
-            <input className='form-control' name='email' type='email'
-              value={this.state.email} onChange={this.handleChange} required={true}
-            />
-          </FormGroup>
+          <Email name='email' value={this.state.email} onChange={this.handleChange} required={true} />
           <ConfirmedPassword value={this.state.password} onChange={this.handleChangePassword} required={true} />
           <button className='btn btn-primary' type='submit'>Sign Up</button>
         </form>

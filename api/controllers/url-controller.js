@@ -49,7 +49,7 @@ class UrlController {
       const url = await Url.create({
         shortened: _shortened,
         original: req.body.original,
-        owner: req.user ? req.user.id : null,
+        owner: req.user ? req.user.username : null,
         expirationDate: req.body.expirationDate,
         password: req.body.password,
         restriction: {

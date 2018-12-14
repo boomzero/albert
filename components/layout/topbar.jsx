@@ -40,7 +40,7 @@ class ProfileDropdown extends Component {
     const pathname = Router.pathname
     return (
       <div className="nav-item dropdown">
-        <button class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown">
+        <button className="btn btn-outline-light dropdown-toggle" data-toggle="dropdown">
           <span className='mr-2'>Hi <strong>{this.state.name}</strong></span>
         </button>
         <div className="dropdown-menu dropdown-menu-right">

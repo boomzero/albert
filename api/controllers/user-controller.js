@@ -28,21 +28,15 @@ class UserController {
     }
   }
 
-  static async updateOne(req, res) {
-    try {
-      const user = await User.findOneAndUpdate(
-        { username: req.user.username },
-        {
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          email: req.body.email
-        },
-        { new: true },
-      )
-      res.json(user)
-    } catch (err) {
-      res.send(err)
-    }
+  static updateOne(req, res) {
+    User.findOne({ username: req.user.username }, (err, user) => {
+      if (err) return res.send(err)
+      const { firstName, lastName, email, password } = req.body
+      Object.assign(user, { firstName, lastName, email })
+      if (password) user.password = password
+      user.save()
+      return res.json(user)
+    })
   }
 }
 

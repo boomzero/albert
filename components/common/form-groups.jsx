@@ -55,6 +55,14 @@ class ConfirmedPassword extends Component {
   }
 }
 
+const Email = (props) => (
+  <FormGroup label='Email'>
+    <input className='form-control' name={props.name} type='email'
+      value={props.value} onChange={props.onChange} required={props.required}
+    />
+  </FormGroup>
+)
+
 const ExpireIn = (props) => (
   <FormGroup label="Expire in" horizontal={true}>
     <div className="input-group">
@@ -107,4 +115,4 @@ const Username = (props) => {
 
 
 export default FormGroup
-export { Password, ConfirmedPassword, ExpireIn, RestrictionLimit, RestrictionMethod, Username }
+export { Password, ConfirmedPassword, Email, ExpireIn, RestrictionLimit, RestrictionMethod, Username }

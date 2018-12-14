@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import axios from 'axios'
 
-import FormGroup from '../common/form-groups'
+import FormGroup, { ConfirmedPassword, Email } from '../common/form-groups'
 
 
 export default class ProfileEditing extends Component {
@@ -16,6 +16,11 @@ export default class ProfileEditing extends Component {
     this.setState({ data, modified: true })
   }
 
+  handleChangePassword = (data) => {
+    data = Object.assign(this.state.data, { password: data.password })
+    this.setState({ data, modified: true })
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault()
     try {
@@ -24,8 +29,8 @@ export default class ProfileEditing extends Component {
         this.props.onToggleMode(data)
         return
       }
-      const { firstName, lastName, email } = data
-      const res = await axios.put('/api/users/mine', { firstName, lastName, email }, {
+      const { firstName, lastName, email, password } = data
+      const res = await axios.put('/api/users/mine', { firstName, lastName, email, password }, {
         headers: { authorization: localStorage.getItem('jwt_token') },
       })
       data = res.data
@@ -54,11 +59,8 @@ export default class ProfileEditing extends Component {
               />
             </div>
           </FormGroup>
-          <FormGroup label='Email'>
-            <input className='form-control' name='email' type='email'
-              value={data.email} onChange={this.handleChange} required={true}
-            />
-          </FormGroup>
+          <Email name='email' value={data.email} onChange={this.handleChange} required={true} />
+          <ConfirmedPassword value={data.password} onChange={this.handleChangePassword} autoHide={true} />
           <button className='btn btn-primary' type='submit'>Save profile</button>
         </form>
         {this.state.dirty ? <small className='text-danger'>Failed to update profile</small> : null}
