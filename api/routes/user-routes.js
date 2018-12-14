@@ -9,8 +9,8 @@ const router = new express.Router()
 router.route('/')
   .post(userController.createOne)
 
-router.route('/:username')
-  .get(userController.getOne)
+router.route('/mine')
+  .get(passport.authenticate('jwt'), userController.getOne)
   .put(passport.authenticate('jwt'), userController.updateOne)
 
 

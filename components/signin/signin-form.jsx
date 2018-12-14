@@ -31,7 +31,7 @@ export default class SigninForm extends Component {
         localStorage.setItem("jwt_token", token)
         Router.push('/dashboard')
       }
-      this.setState({ dirty: true })
+      else this.setState({ dirty: true })
     } catch (err) {
       console.log(err)
     }
