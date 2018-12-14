@@ -7,10 +7,14 @@ export default (props) => (
     <section className='container p-5'>
       <div className="row justify-content-center">
         <div className="col-10 col-md-8 col-xl-6">
-          <div className='card card-body'>
+          <div className='card shadow card-body'>
             <nav className="nav nav-tabs nav-justified mb-3">
-              <a className="nav-item nav-link active" data-toggle="tab" href="#signin-form">Sign In</a>
-              <a className="nav-item nav-link" data-toggle="tab" href="#signup-form">Sign Up</a>
+              <a className="nav-item nav-link active" data-toggle="tab" href="#signin-form">
+                <strong>Sign In</strong>
+              </a>
+              <a className="nav-item nav-link" data-toggle="tab" href="#signup-form">
+                <strong>Sign Up</strong>
+              </a>
             </nav>
             <div className="tab-content">
               <div className="tab-pane fade show active" id="signin-form">
