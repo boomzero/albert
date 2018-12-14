@@ -33,6 +33,7 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-google-recaptcha": "^1.0.5",
+    "request-ip": "^2.1.3",
     "shortid": "^2.2.13"
   },
   "repository": "github:lqmanh/albert"

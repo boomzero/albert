@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const requestip = require('request-ip')
 const shortid = require('shortid')
 
 
@@ -75,6 +76,22 @@ class UrlController {
         password: req.body.password
       })
       res.json(url)
+    } catch (err) {
+      res.send(err)
+    }
+  }
+
+  static async logAccess(req, res) {
+    try {
+      const newAccess = {
+        ipv4: requestip.getClientIp(req),
+        redirected: req.body.redirected
+      }
+      await Url.updateOne({ shortened: req.params.shortened }, {
+        $inc: { 'accesses.count': 1 },
+        $push: { 'accesses.list': newAccess }
+      })
+      res.json({ success: true })
     } catch (err) {
       res.send(err)
     }
