@@ -28,8 +28,8 @@ export default class Redirecting extends Component {
   render() {
     const urlData = this.state.urlData
     if (!urlData) return null
-
     const expirationDayJs = dayjs(urlData.expirationDate)
+
     if (expirationDayJs.isBefore(dayjs())) return <ExpiredPage since={expirationDayJs} />
     if (!urlData.active) return <DeactivatedPage />
     if (!this.state.passwordValid) return <PasswordPage onValid={() => this.setState({ passwordValid: true })} />
@@ -37,9 +37,10 @@ export default class Redirecting extends Component {
       if (urlData.restriction.method === 'Timeout') return (
         <TimeoutPage duration={urlData.restriction.timeOutDuration} redirectTo={urlData.original} />
       )
-      else if (urlData.restriction.method === 'CAPTCHA') return <CaptchaPage redirectTo={urlData.original} />
-      else if (urlData.restriction.method === 'Block') return <BlockedPage />
+      if (urlData.restriction.method === 'CAPTCHA') return <CaptchaPage redirectTo={urlData.original} />
+      if (urlData.restriction.method === 'Block') return <BlockedPage />
     }
+    axios.post(`/api/urls/${Router.query.shortened}/accesses`, { redirected: true })
     Router.push(urlData.original)
     return null
   }

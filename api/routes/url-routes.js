@@ -16,5 +16,9 @@ router.route('/:shortened')
   .put(passport.authenticate('jwt'), urlController.updateOne)
   .delete(passport.authenticate('jwt'), urlController.deleteOne)
 
+router.route('/:shortened/accesses')
+  // .get(passport.authenticate('jwt'), urlController.getAccesses)
+  .post(urlController.logAccess)
+
 
 module.exports = router
