@@ -44,14 +44,14 @@ export default class Options extends Component {
   render() {
     return (
       <>
-        <button className="btn btn-outline-light mb-3" type='button'
+        <button className="btn btn-outline-dark shadow-sm mb-3" type='button'
           data-toggle="collapse" data-target="#url-shortening-options"
         >
           Options
         </button>
 
         <div className="collapse" id="url-shortening-options">
-          <div className="card card-body">
+          <div className="card shadow card-body">
             <ExpireIn name='lifespan' value={this.state.lifespan} onChange={this.handleChange} />
             <CustomShortened name='customShortened' value={this.state.customShortened} onChange={this.handleChange} />
             <ConfirmedPassword onChange={this.handleChangePassword} autoHide={true} horizontal={true} />

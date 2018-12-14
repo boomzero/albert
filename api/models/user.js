@@ -18,8 +18,7 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   firstName: {
     type: String,
@@ -31,8 +30,12 @@ const userSchema = new Schema({
   }
 })
 
+userSchema.pre('save', function() {
+  this.password = bcrypt.hashSync(this.password, saltRounds)
+})
+
 userSchema.methods.validatePassword = function(candidate) {
-  return candidate === this.password
+  return bcrypt.compareSync(candidate, this.password)
 }
 
 

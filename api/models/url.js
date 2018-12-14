@@ -1,6 +1,8 @@
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
 
 
+const saltRounds = 10
 const Schema = mongoose.Schema
 
 const accessSchema = new Schema({
@@ -66,8 +68,12 @@ const urlSchema = new Schema({
   }
 })
 
+urlSchema.pre('save', function() {
+  this.password = bcrypt.hashSync(this.password, saltRounds)
+})
+
 urlSchema.methods.validatePassword = function(candidate) {
-  return candidate === this.password
+  return bcrypt.compareSync(candidate, this.password)
 }
 
 

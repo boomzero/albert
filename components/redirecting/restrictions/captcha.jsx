@@ -2,7 +2,7 @@ import { Component, createRef } from 'react'
 import Router from 'next/router'
 import ReCAPTCHA from "react-google-recaptcha"
 
-import captchaConfigs from "../../configs/captcha"
+import captchaConfigs from "../../../configs/captcha"
 
 
 export default class Captcha extends Component {
