@@ -32,8 +32,13 @@ export default class Redirecting extends Component {
 
     if (expirationDayJs.isBefore(dayjs())) return <ExpiredPage since={expirationDayJs} />
     if (!urlData.active) return <DeactivatedPage />
+
     if (!this.state.passwordValid) return <PasswordPage onValid={() => this.setState({ passwordValid: true })} />
-    if (urlData.accesses.count + 1 > urlData.restriction.limitAllIpPerDay) {
+
+    const accessCountLastDay = urlData.accesses.filter((access) => {
+      return dayjs(access.timestamp).isAfter(dayjs().subtract(1, 'day'))
+    }).length
+    if (accessCountLastDay + 1 > urlData.restriction.limitAllIpPerDay) {
       if (urlData.restriction.method === 'Timeout') return (
         <TimeoutPage duration={urlData.restriction.timeOutDuration} redirectTo={urlData.original} />
       )

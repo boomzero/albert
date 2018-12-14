@@ -88,8 +88,7 @@ class UrlController {
         redirected: req.body.redirected
       }
       await Url.updateOne({ shortened: req.params.shortened }, {
-        $inc: { 'accesses.count': 1 },
-        $push: { 'accesses.list': newAccess }
+        $push: { 'accesses': newAccess }
       })
       res.json({ success: true })
     } catch (err) {
