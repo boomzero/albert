@@ -48,7 +48,7 @@ class ProfileDropdown extends Component {
             <a className={`dropdown-item ${pathname === '/dashboard' ? 'active' : ''}`}>Dashboard</a>
           </Link>
           <Link prefetch href="/profile">
-            <a className={`dropdown-item ${pathname === '/profile' ? 'active' : ''}`}>View Profile</a>
+            <a className={`dropdown-item ${pathname === '/profile' ? 'active' : ''}`}>My Profile</a>
           </Link>
           <a className="dropdown-item text-danger" href='#' onClick={this.signOut}>Sign out</a>
         </div>

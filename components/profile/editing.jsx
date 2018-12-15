@@ -29,8 +29,8 @@ export default class ProfileEditing extends Component {
         this.props.onToggleMode(data)
         return
       }
-      const { firstName, lastName, email, password } = data
-      const res = await axios.put('/api/users/mine', { firstName, lastName, email, password }, {
+      const { firstName, lastName, bio, email, password } = data
+      const res = await axios.put('/api/users/mine', { firstName, lastName, bio, email, password }, {
         headers: { authorization: localStorage.getItem('jwt_token') },
       })
       data = res.data
@@ -58,6 +58,9 @@ export default class ProfileEditing extends Component {
                 value={data.lastName} placeholder='Last Name' onChange={this.handleChange} required={true}
               />
             </div>
+          </FormGroup>
+          <FormGroup label='Biography'>
+            <textarea className='form-control' name='bio' value={data.bio} onChange={this.handleChange} />
           </FormGroup>
           <Email name='email' value={data.email} onChange={this.handleChange} required={true} />
           <ConfirmedPassword value={data.password} onChange={this.handleChangePassword} autoHide={true} />
