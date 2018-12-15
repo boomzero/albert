@@ -7,6 +7,6 @@ $theme-colors: (
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-.form-control:focus {
+.form-control:focus, .custom-select:focus {
   box-shadow: none;
 }
