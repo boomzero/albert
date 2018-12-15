@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const requestip = require('request-ip')
 const shortid = require('shortid')
+const dayjs = require('dayjs')
 
 
 const Url = mongoose.model('Url')
@@ -32,6 +33,28 @@ class UrlController {
     }
   }
 
+  static getAccesses(req, res) {
+    Url.find({ owner: req.user.id }, (err, urls) => {
+      if (err) return res.send(err)
+      const date = dayjs()
+      let accesses = []
+      let accessCount = {}
+      for (let i = 1; i <= date.date(); ++i) accessCount[i] = 0
+
+      for (const url of urls) {
+        accessList = url.accesses.filter((access) => {
+          const accessDate = dayjs(access.timestamp)
+          return (date.year() === accessDate.month()) && (date.month() === accessDate.month())
+        })
+        accesses.push.call(accessList)
+      }
+      for (const access of accesses) {
+        ++accessCount[dayjs(access.timestamp).date()]
+      }
+      return res.json({ accessCount })
+    })
+  }
+
   static async getAllOfUser(req, res) {
     try {
       const urls = await Url.find({
@@ -49,7 +72,7 @@ class UrlController {
       const url = await Url.create({
         shortened: _shortened,
         original: req.body.original,
-        owner: req.user ? req.user.username : null,
+        owner: req.user ? req.user.id : null,
         expirationDate: req.body.expirationDate,
         password: req.body.password,
         restriction: {
