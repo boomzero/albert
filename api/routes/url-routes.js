@@ -10,6 +10,9 @@ router.route('/')
   .get(passport.authenticate('jwt'), urlController.getAllOfUser)
   .post(urlController.createOne)
 
+router.route('/accesses')
+  .get(passport.authenticate('jwt'), urlController.getAccesses)
+
 router.route('/:shortened')
   .get(urlController.getOne)
   .post(urlController.validatePassword)
@@ -17,7 +20,6 @@ router.route('/:shortened')
   .delete(passport.authenticate('jwt'), urlController.deleteOne)
 
 router.route('/:shortened/accesses')
-  // .get(passport.authenticate('jwt'), urlController.getAccesses)
   .post(urlController.logAccess)
 
 

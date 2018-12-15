@@ -31,8 +31,8 @@ class UserController {
   static updateOne(req, res) {
     User.findOne({ username: req.user.username }, (err, user) => {
       if (err) return res.send(err)
-      const { firstName, lastName, email, password } = req.body
-      Object.assign(user, { firstName, lastName, email })
+      const { firstName, lastName, bio, email, password } = req.body
+      Object.assign(user, { firstName, lastName, bio, email })
       if (password) user.password = password
       user.save()
       return res.json(user)

@@ -16,10 +16,6 @@ const userSchema = new Schema({
     required: true,
     select: false
   },
-  email: {
-    type: String,
-    required: true
-  },
   firstName: {
     type: String,
     required: true
@@ -27,7 +23,12 @@ const userSchema = new Schema({
   lastName: {
     type: String,
     required: true
-  }
+  },
+  bio: String,
+  email: {
+    type: String,
+    required: true
+  },
 })
 
 userSchema.pre('save', function() {
